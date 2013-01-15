@@ -1,0 +1,18 @@
+<div data-role="page" data-url="<%= Rho::RhoConfig.start_path %>/" data-theme="b" data-title="PersonFinder">
+
+  <div data-role="header" data-position="inline">
+    <h1>メニューリスト</h1>
+  </div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <li><a href="<%= url_for :controller => :Evacuee, :action => :search %>" style="text-align:center;">検　索</a></li>
+      <li><a href="<%= url_for :controller => :Evacuee, :action => :new %>" style="text-align:center;">登　録</a></li>
+      <li><a href="<%= url_for :controller => :Evacuee, :action => :login %>" style="text-align:center;">サーバ送信</a></li>
+      <li><a href="<%= url_for :controller => :Address, :action => :download %>"  style="text-align:center;">住所マスタダウンロード</a></li>
+      <li><a href="<%= url_for :controller => :Shelter, :action => :download %>"  style="text-align:center;">避難所マスタダウンロード</a></li>
+      <li><a href="<%= url_for :controller => :Master, :action => :download %>"  style="text-align:center;">APPLICマスタダウンロード</a></li>
+    </ul>
+  </div>
+
+</div>

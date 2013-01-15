@@ -1,0 +1,33 @@
+#sdk: "C:/MotorolaRhoMobileSuite2.1.1.7/ruby/lib/ruby/gems/1.9.1/gems/rhodes-3.4.2"
+sdkversion: "3.4.0"
+name: "PersonFinderMobile"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+bbver: 4.6
+applog: "rholog.txt"
+iphone:
+  configuration: "Release"
+  sdk: "iphonesimulator5.0"
+  provisionprofile: 
+  codesignidentity: 
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.personfinder"
+  BundleURLScheme: "personfinder"
+wp:
+  productid: "106a0d51-061f-0130-688d-005056c00008"
+symbian:
+  uid: "0xeb757204"
+android:
+  version: "4.0.3"
+  production:
+    certificate: "D:/Rhodes/keystore"
+    password: "pfpassword"
+    alias: "personfinder.keystore"
+  emulator: "Test2"
+extensions:
+  - json
+  - another-extension
+capabilities:
+  - gps
+  - non_motorola_device

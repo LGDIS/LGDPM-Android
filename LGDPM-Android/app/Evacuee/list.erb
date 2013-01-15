@@ -1,0 +1,42 @@
+<div data-role="page" data-theme="b" data-title="PersonFinder">
+
+  <div data-role="header" data-position="inline" >
+    <h1>検索結果</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse">
+      メニュー
+    </a>
+    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus">
+      新規登録
+    </a>
+  </div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <% @evacuees.each do |evacuee| %>
+        <li>
+          <a href="<%= url_for :action => :edit, :id => evacuee.object %>">
+            <div class="ui-grid-a">
+              <div class="ui-block-a"><%= evacuee.sei %></div>
+              <div class="ui-block-b"><%= evacuee.mei %></div>
+              <div class="ui-block-a"><%= evacuee.birthday.nil? or evacuee.birthday.empty? ? "" : "#{evacuee.birthday_year}/#{evacuee.birthday_month}/#{evacuee.birthday_day}" %></div>
+              <div class="ui-block-b"><%= Shelter.find_name(evacuee.shelter) %></div>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <% if Rho::RhoConfig.pf_per_page.to_i < @all_num %>
+    <div data-role="footer" data-theme="a" class="ui-bar ui-grid-b">
+      <div class="ui-block-a" style="text-align:center;">
+        <%= page_up_tag :page => get_current_page() %>
+      </div>
+      <div class="ui-block-b">
+        
+      </div>
+      <div class="ui-block-c" style="text-align:center;">
+        <%= page_down_tag :page => get_current_page(), :num => @all_num %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,138 @@
+<div data-role="page" data-theme="b" id="evacuee-search" data-title="PersonFinder">
+  <div data-role="header" data-position="inline">
+    <h1>検索条件</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse">
+      メニュー
+    </a>
+  </div>
+  <div data-role="content">
+    <form method="POST" action="<%= url_for :action => :do_search %>" id="evacuee-search-form">
+      <div data-role="fieldcontain">
+        <label for="evacuee-sei_kana" class="fieldLabel">姓（カナ）</label>
+        <input type="text" id="evacuee-sei_kana" name="evacuee[sei_kana]" />
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-mei_kana" class="fieldLabel">名（カナ）</label>
+        <input type="text" id="evacuee-mei_kana" name="evacuee[mei_kana]" />
+      </div>
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" class="ui-grid-a">
+          <legend>開始生年月日</legend> 
+          <div class="ui-block-a"><%= select_year_tag :name => "evacuee[birthday_year_from]", :id => "evacuee-birthday_year_from", :data_theme => "d" %></div>
+          <div class="ui-block-b"><h3 style="width:40px; text-align:right;">年</h3></div>
+          <div class="ui-block-a"><%= select_month_tag :name => "evacuee[birthday_month_from]", :id => "evacuee-birthday_month_from", :data_theme => "d" %></div>
+          <div class="ui-block-b"><h3 style="width:40px; text-align:right;">月</h3></div>
+          <div class="ui-block-a"><%= select_day_tag :name => "evacuee[birthday_day_from]", :id => "evacuee-birthday_day_from", :data_theme => "d" %></div>
+          <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
+        </fieldset>
+      </div>
+          
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" class="ui-grid-a">
+          <legend>終了生年月日</legend> 
+          <div class="ui-block-a"><%= select_year_tag :name => "evacuee[birthday_year_to]", :id => "evacuee-birthday_year_to", :data_theme => "d" %></div>
+          <div class="ui-block-b"><h3 style="width:40px; text-align:right;">年</h3></div>
+          <div class="ui-block-a"><%= select_month_tag :name => "evacuee[birthday_month_to]", :id => "evacuee-birthday_month_to", :data_theme => "d" %></div>
+          <div class="ui-block-b"><h3 style="width:40px; text-align:right;">月</h3></div>
+          <div class="ui-block-a"><%= select_day_tag :name => "evacuee[birthday_day_to]", :id => "evacuee-birthday_day_to", :data_theme => "d" %></div>
+          <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
+        </fieldset>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="evacuee-local_toll" class="select">市外区分</label>
+        <select name="evacuee[local_toll]" id="evacuee-local_toll" data-theme="d"> 
+          <option value="" selected="selected">－</option> 
+          <option value="1">市内</option> 
+          <option value="0">市外</option> 
+        </select> 
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="evacuee-shelter" class="select">避難所</label>
+        <%= select_shelter_tag :name => "evacuee[shelter]", :id => "evacuee-shelter", :data_theme => "d" %>
+      </div>
+
+      <div data-role="fieldcontain"> 
+        <label for="evacuee-pregnancy" class="select">負傷</label>
+        <select name="evacuee[injury]" id="evacuee-injury" data-theme="d"> 
+          <%= master_options("injury", true) %>
+        </select>
+      </div>
+
+      <div data-role="fieldcontain"> 
+        <label for="evacuee-pregnancy" class="select">アレルギー</label>
+        <select name="evacuee[allergy]" id="evacuee-allergy" data-theme="d"> 
+          <%= master_options("allergy", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain"> 
+        <label for="evacuee-pregnancy" class="select">妊婦</label>
+        <select name="evacuee[pregnancy]" id="evacuee-pregnancy" data-theme="d"> 
+          <%= master_options("pregnancy", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain"> 
+        <label for="evacuee-baby" class="select">乳幼児</label>
+        <select name="evacuee[baby]" id="evacuee-baby" data-theme="d"> 
+          <%= master_options("baby", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-nursing_care" class="select">要介護度３以上</label>
+        <select name="evacuee[nursing_care]" id="evacuee-nursing_care" data-theme="d"> 
+          <%= master_options("nursing_care", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-single_elderly" class="select">一人暮らし高齢者</label>
+        <select name="evacuee[single_elderly]" id="evacuee-single_elderly" data-theme="d"> 
+          <%= master_options("single_elderly", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-household_elderly" class="select">高齢者世帯</label>
+        <select name="evacuee[household_elderly]" id="evacuee-household_elderly" data-theme="d"> 
+          <%= master_options("household_elderly", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-bedridden_elderly" class="select">寝たきり高齢者</label>
+        <select name="evacuee[bedridden_elderly]" id="evacuee-bedridden_elderly" data-theme="d"> 
+          <%= master_options("bedridden_elderly", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-demented_elderly" class="select">認知症高齢者</label>
+        <select name="evacuee[demented_elderly]" id="evacuee-demented_elderly" data-theme="d"> 
+          <%= master_options("demented_elderly", true) %>
+        </select>
+      </div>
+  
+      <div data-role="fieldcontain">
+        <label for="evacuee-treatment_record_holder" class="select">療育手帳所持者</label>
+        <select name="evacuee[treatment_record_holder]" id="evacuee-treatment_record_holder" data-theme="d"> 
+          <%= master_options("treatment_record_holder", true) %>
+        </select>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="evacuee-physical_disability_certificate" class="select">身体障害者手帳所持者</label>
+        <select name="evacuee[physical_disability_certificate]" id="evacuee-physical_disability_certificate" data-theme="d"> 
+          <%= master_options("physical_disability_certificate", true) %>
+        </select>
+      </div>
+
+      <button type="button" data-theme="a" data-mini="true" id="search-button">検　索</button>
+    </form>
+  </div>
+</div>
