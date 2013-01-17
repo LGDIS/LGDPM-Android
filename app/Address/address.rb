@@ -2,6 +2,14 @@
 class Address
   include Rhom::PropertyBag
 
+  
+  # 住所データを返します
+  # ==== Return
+  # 住所データ
+  def self.all
+    return @@address
+  end
+  
   # 指定された都道府県の市区町村データを返します
   # ==== Args
   # _pref_code_  :: 都道府県コード

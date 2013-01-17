@@ -140,6 +140,22 @@ module BrowserHelper
     tag
   end
   
+  # 都道府県のオプションタグのHTMLを返します
+  # ==== Args
+  # _value_ :: 指定された値と一致する選択肢を選択状態にします
+  # ==== Return
+  # オプションタグのHTML
+  def prefecture_options(value="")
+    address = Address.all
+    tag = %(<option value="">－</option>)
+    address.each do |pref_cd, data|
+      tag << %(<option value="#{pref_cd}" )
+      tag << selected(pref_cd, value)
+      tag << %(>#{data[""]}</option>)
+    end
+    tag
+  end
+  
   # 市区町村のオプションタグのHTMLを返します
   # ==== Args
   # _pref_cd_ :: 都道府県コード
@@ -150,6 +166,7 @@ module BrowserHelper
     cities = Address.find_cities(pref_cd)
     tag = %(<option value="">－</option>)
     cities.each do |city_cd, city|
+      next if city_cd == ""      
       tag << %(<option value="#{city_cd}" )
       tag << selected(city_cd, value)
       tag << %(>#{city[""]}</option>)

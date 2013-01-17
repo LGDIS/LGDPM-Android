@@ -77,54 +77,7 @@
       <div data-role="fieldcontain">
         <label for="evacuee-prefecture" class="select">都道府県</label>
         <select name="evacuee[prefecture]" id="evacuee-prefecture" data-theme="d"> 
-          <option value="">－</option> 
-          <option value="01" <%= selected("01", @evacuee.prefecture) %>>北海道</option> 
-          <option value="02" <%= selected("02", @evacuee.prefecture) %>>青森県</option> 
-          <option value="03" <%= selected("03", @evacuee.prefecture) %>>岩手県</option> 
-          <option value="04" <%= selected("04", @evacuee.prefecture) %>>宮城県</option> 
-          <option value="05" <%= selected("05", @evacuee.prefecture) %>>秋田県</option> 
-          <option value="06" <%= selected("06", @evacuee.prefecture) %>>山形県</option> 
-          <option value="07" <%= selected("07", @evacuee.prefecture) %>>福島県</option> 
-          <option value="08" <%= selected("08", @evacuee.prefecture) %>>茨城県</option> 
-          <option value="09" <%= selected("09", @evacuee.prefecture) %>>栃木県</option> 
-          <option value="10" <%= selected("10", @evacuee.prefecture) %>>群馬県</option> 
-          <option value="11" <%= selected("11", @evacuee.prefecture) %>>埼玉県</option> 
-          <option value="12" <%= selected("12", @evacuee.prefecture) %>>千葉県</option> 
-          <option value="13" <%= selected("13", @evacuee.prefecture) %>>東京都</option> 
-          <option value="14" <%= selected("14", @evacuee.prefecture) %>>神奈川県</option> 
-          <option value="15" <%= selected("15", @evacuee.prefecture) %>>新潟県</option> 
-          <option value="16" <%= selected("16", @evacuee.prefecture) %>>富山県</option> 
-          <option value="17" <%= selected("17", @evacuee.prefecture) %>>石川県</option> 
-          <option value="18" <%= selected("18", @evacuee.prefecture) %>>福井県</option> 
-          <option value="19" <%= selected("19", @evacuee.prefecture) %>>山梨県</option> 
-          <option value="20" <%= selected("20", @evacuee.prefecture) %>>長野県</option> 
-          <option value="21" <%= selected("21", @evacuee.prefecture) %>>岐阜県</option> 
-          <option value="22" <%= selected("22", @evacuee.prefecture) %>>静岡県</option> 
-          <option value="23" <%= selected("23", @evacuee.prefecture) %>>愛知県</option> 
-          <option value="24" <%= selected("24", @evacuee.prefecture) %>>三重県</option> 
-          <option value="25" <%= selected("25", @evacuee.prefecture) %>>滋賀県</option> 
-          <option value="26" <%= selected("26", @evacuee.prefecture) %>>京都府</option> 
-          <option value="27" <%= selected("27", @evacuee.prefecture) %>>大阪府</option> 
-          <option value="28" <%= selected("28", @evacuee.prefecture) %>>兵庫県</option> 
-          <option value="29" <%= selected("29", @evacuee.prefecture) %>>奈良県</option> 
-          <option value="30" <%= selected("30", @evacuee.prefecture) %>>和歌山県</option> 
-          <option value="31" <%= selected("31", @evacuee.prefecture) %>>鳥取県</option> 
-          <option value="32" <%= selected("32", @evacuee.prefecture) %>>島根県</option> 
-          <option value="33" <%= selected("33", @evacuee.prefecture) %>>岡山県</option> 
-          <option value="34" <%= selected("34", @evacuee.prefecture) %>>広島県</option> 
-          <option value="35" <%= selected("35", @evacuee.prefecture) %>>山口県</option> 
-          <option value="36" <%= selected("36", @evacuee.prefecture) %>>徳島県</option> 
-          <option value="37" <%= selected("37", @evacuee.prefecture) %>>香川県</option> 
-          <option value="38" <%= selected("38", @evacuee.prefecture) %>>愛媛県</option> 
-          <option value="39" <%= selected("39", @evacuee.prefecture) %>>高知県</option> 
-          <option value="40" <%= selected("40", @evacuee.prefecture) %>>福岡県</option> 
-          <option value="41" <%= selected("41", @evacuee.prefecture) %>>佐賀県</option> 
-          <option value="42" <%= selected("42", @evacuee.prefecture) %>>長崎県</option> 
-          <option value="43" <%= selected("43", @evacuee.prefecture) %>>熊本県</option> 
-          <option value="44" <%= selected("44", @evacuee.prefecture) %>>大分県</option> 
-          <option value="45" <%= selected("45", @evacuee.prefecture) %>>宮崎県</option> 
-          <option value="46" <%= selected("46", @evacuee.prefecture) %>>鹿児島県</option> 
-          <option value="47" <%= selected("47", @evacuee.prefecture) %>>沖縄県</option> 
+          <%= prefecture_options(@evacuee.prefecture) %>
         </select> 
       </div>
       <div data-role="fieldcontain">
