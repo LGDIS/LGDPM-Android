@@ -1,0 +1,12 @@
+<div data-role="page" data-rho-wait-page="true" data-title="PersonFinder">
+  <div data-role="header" data-position="inline">
+    <h1>エラー</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse">
+      メニュー
+    </a>
+  </div>
+  <div data-role="content">
+    <div class="error-message"><%= @error_message %></div>
+    <div><%= @error_detail %><div>
+  </div>
+</div>
