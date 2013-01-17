@@ -20,14 +20,13 @@ symbian:
   uid: "0xeb757204"
 android:
   version: "4.0.3"
+  emulator: "Test2"
   production:
     certificate: "D:/Rhodes/keystore"
     password: "pfpassword"
     alias: "personfinder.keystore"
-  emulator: "Test2"
 extensions:
   - json
   - another-extension
 capabilities:
-  - gps
   - non_motorola_device
