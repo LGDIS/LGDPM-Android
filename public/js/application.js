@@ -34,10 +34,10 @@ $("#evacuee-search").live("pageinit", function(event) {
   });
   $("#search-button").click(function(event) {
 	var errors = new Array();
-    if (validate_date($("#evacuee-birthday_year_from").val(), $("#evacuee-birthday_month_from").val(), $("#evacuee-birthday_day_from").val()) == false) {
+    if (validate_date($("#evacuee-date_of_birth_year_from").val(), $("#evacuee-date_of_birth_month_from").val(), $("#evacuee-date_of_birth_day_from").val()) == false) {
       errors.push("開始生年月日が不正です。")
     }
-    if (validate_date($("#evacuee-birthday_year_to").val(), $("#evacuee-birthday_month_to").val(), $("#evacuee-birthday_day_to").val()) == false) {
+    if (validate_date($("#evacuee-date_of_birth_year_to").val(), $("#evacuee-date_of_birth_month_to").val(), $("#evacuee-date_of_birth_day_to").val()) == false) {
       errors.push("終了生年月日が不正です。")
     }
     if (errors.length > 0) {
@@ -54,39 +54,39 @@ $("#evacuee-search").live("pageinit", function(event) {
 
 
 function setup_address_select() {
-  $("#evacuee-prefecture").change(function(event) {
-	var pref_cd = $(this).val();
-    if (pref_cd == "") {
-      var city_select = $("#evacuee-city");
+  $("#evacuee-home_state").change(function(event) {
+	var state_cd = $(this).val();
+    if (state_cd == "") {
+      var city_select = $("#evacuee-home_city");
       city_select.empty();
       city_select.append("<option value=''>－</option>");
       city_select.selectmenu('refresh', true); 
     } else {
-      $.get("/app/Address/cities", {"pref_cd": pref_cd}, function(data){
-        var city_select = $("#evacuee-city");
+      $.get("/app/Address/cities", {"state_cd": state_cd}, function(data){
+        var city_select = $("#evacuee-home_city");
         city_select.empty();
         city_select.append(data);
         city_select.selectmenu('refresh', true); 
       });
     }
-    var town_select = $("#evacuee-town");
-    town_select.empty();
-    town_select.append("<option value=''>－</option>");
-    town_select.selectmenu('refresh', true); 
+    var street_select = $("#evacuee-home_street");
+    street_select.empty();
+    street_select.append("<option value=''>－</option>");
+    street_select.selectmenu('refresh', true); 
   });
-  $("#evacuee-city").change(function(event) {
+  $("#evacuee-home_city").change(function(event) {
     var city_cd = $(this).val();
     if (city_cd == "") {
-      var town_select = $("#evacuee-town");
-      town_select.empty();
-      town_select.append("<option value=''>－</option>");
-      town_select.selectmenu('refresh', true); 
+      var street_select = $("#evacuee-home_street");
+      street_select.empty();
+      street_select.append("<option value=''>－</option>");
+      street_select.selectmenu('refresh', true); 
     } else {
-      $.get("/app/Address/towns", {"pref_cd": $("#evacuee-prefecture").val(), "city_cd": $(this).val()}, function(data){
-        var town_select = $("#evacuee-town");
-        town_select.empty();
-        town_select.append(data);
-        town_select.selectmenu('refresh', true); 
+      $.get("/app/Address/streets", {"state_cd": $("#evacuee-home_state").val(), "city_cd": $(this).val()}, function(data){
+        var street_select = $("#evacuee-home_street");
+        street_select.empty();
+        street_select.append(data);
+        street_select.selectmenu('refresh', true); 
       });
     }
   });
@@ -94,35 +94,35 @@ function setup_address_select() {
 
 function validate_evacuee() {
   var errors = new Array();
-  if ($("#evacuee-sei").val() == "") {
+  if ($("#evacuee-family_name").val() == "") {
     errors.push("姓が入力されていません。")
   }
-  if ($("#evacuee-mei").val() == "") {
+  if ($("#evacuee-given_name").val() == "") {
     errors.push("名が入力されていません。")
   }
-  if ($("#evacuee-sei_kana").val() == "") {
+  if ($("#evacuee-alternate_family_name").val() == "") {
     errors.push("姓（カナ）が入力されていません。")
   }
-  if ($("#evacuee-mei_kana").val() == "") {
+  if ($("#evacuee-alternate_given_name").val() == "") {
     errors.push("名（カナ）が入力されていません。")
   }
-  var birthday_year = $("#evacuee-birthday_year").val();
-  var birthday_month = $("#evacuee-birthday_month").val();
-  var birthday_day = $("#evacuee-birthday_day").val();
+  var date_of_birth_year = $("#evacuee-date_of_birth_year").val();
+  var date_of_birth_month = $("#evacuee-date_of_birth_month").val();
+  var date_of_birth_day = $("#evacuee-date_of_birth_day").val();
 
-  if (birthday_year == "" || birthday_month == "" || birthday_day == "") {
-    errors.push("誕生日が入力されていません。")
-  } else if (validate_date(birthday_year, birthday_month, birthday_day) == false) {
-    errors.push("誕生日が不正です。")
+  if (date_of_birth_year == "" || date_of_birth_month == "" || date_of_birth_day == "") {
+    errors.push("生年月日が入力されていません。")
+  } else if (validate_date(date_of_birth_year, date_of_birth_month, date_of_birth_day) == false) {
+    errors.push("生年月日が不正です。")
   }
-  if ($("#evacuee-shelter").val() == "") {
+  if ($("#evacuee-shelter_name").val() == "") {
     errors.push("避難所が選択されていません。")
   }
-  if (validate_date($("#evacuee-in_date_year").val(), $("#evacuee-in_date_month").val(), $("#evacuee-in_date_day").val()) == false) {
-    errors.push("入所日が不正です。")
+  if (validate_date($("#evacuee-shelter_entry_date_year").val(), $("#evacuee-shelter_entry_date_month").val(), $("#evacuee-shelter_entry_date_day").val()) == false) {
+    errors.push("入所年月日が不正です。")
   }
-  if (validate_date($("#evacuee-out_date_year").val(), $("#evacuee-out_date_month").val(), $("#evacuee-out_date_day").val()) == false) {
-    errors.push("退所日が不正です。")
+  if (validate_date($("#evacuee-shelter_leave_date_year").val(), $("#evacuee-shelter_leave_date_month").val(), $("#evacuee-shelter_leave_date_day").val()) == false) {
+    errors.push("退所年月日が不正です。")
   }
   if (errors.length > 0) {
 	  alert(errors.join("\n"));

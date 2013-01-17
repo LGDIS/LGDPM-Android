@@ -18,8 +18,8 @@ class EvacueeController < Rho::RhoController
   def do_search
     @@page = 0
     @@search_condition = @params['evacuee']
-    concat_date(@@search_condition, 'birthday', 'from')
-    concat_date(@@search_condition, 'birthday', 'to')
+    concat_date(@@search_condition, 'date_of_birth', 'from')
+    concat_date(@@search_condition, 'date_of_birth', 'to')
 
     @all_num = Evacuee.count_by_condition(@@search_condition)
     @evacuees = Evacuee.find_by_condition(@@page, @@search_condition)
@@ -62,10 +62,10 @@ class EvacueeController < Rho::RhoController
       redirect Rho::RhoConfig.start_path  
     end
     
-    prefecture = Rho::RhoConfig.pf_default_prefecture
+    state = Rho::RhoConfig.pf_default_state
     city = Rho::RhoConfig.pf_default_city
     @@current_shelter ||= ""
-    @evacuee = Evacuee.new({'prefecture' => prefecture, 'city' => city, 'shelter' => @@current_shelter})
+    @evacuee = Evacuee.new({'home_state' => state, 'home_city' => city, 'shelter_name' => @@current_shelter})
     render :action => :new, :back => Rho::RhoConfig.start_path
   end
 
@@ -84,13 +84,13 @@ class EvacueeController < Rho::RhoController
   # POST /Evacuee/create
   def create
     evacuee = @params['evacuee']
-    concat_date(evacuee, 'birthday')
-    concat_date(evacuee, 'in_date')
-    concat_date(evacuee, 'out_date')
+    concat_date(evacuee, 'date_of_birth')
+    concat_date(evacuee, 'shelter_entry_date')
+    concat_date(evacuee, 'shelter_leave_date')
     
     @evacuee = Evacuee.new(evacuee)
     @evacuee.save
-    @@current_shelter = @evacuee.shelter
+    @@current_shelter = @evacuee.shelter_name
     redirect :action => :new
   end
 
@@ -99,9 +99,9 @@ class EvacueeController < Rho::RhoController
   def update
     @evacuee = Evacuee.find(@params['id'])
     evacuee = @params['evacuee']
-    concat_date(evacuee, 'birthday')
-    concat_date(evacuee, 'in_date')
-    concat_date(evacuee, 'out_date')
+    concat_date(evacuee, 'date_of_birth')
+    concat_date(evacuee, 'shelter_entry_date')
+    concat_date(evacuee, 'shelter_leave_date')
     @evacuee.update_attributes(evacuee) if @evacuee
     redirect :action => :do_search_again
   end

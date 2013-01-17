@@ -3,30 +3,36 @@ class Address
   include Rhom::PropertyBag
 
   
-  # 住所データを返します
+  # 全住所データを返します
   # ==== Return
-  # 住所データ
+  # 全住所データ
   def self.all
     return @@address
   end
   
   # 指定された都道府県の市区町村データを返します
   # ==== Args
-  # _pref_code_  :: 都道府県コード
+  # _state_code_  :: 都道府県コード
   # ==== Return
   # 市区町村データ
-  def self.find_cities(pref_cd)
-    return @@address[pref_cd]
+  def self.find_cities(state_cd)
+    if state_cd.nil? or state_cd.empty?
+      return {}
+    end
+    return @@address[state_cd]
   end
   
   # 指定された都道府県、市区町村の町目字データを返します
   # ==== Args
-  # _pref_code_  :: 都道府県コード
+  # _state_code_  :: 都道府県コード
   # _city_code_  :: 市区町村コード
   # ==== Return
   # 町目字データ
-  def self.find_towns(pref_cd, city_cd)
-    return @@address[pref_cd][city_cd]
+  def self.find_streets(state_cd, city_cd)
+    if state_cd.nil? or state_cd.empty? or city_cd.nil? or city_cd.empty?
+      return {}
+    end
+    return @@address[state_cd][city_cd]
   end
   
   # JSONファイルから、住所データをロードします

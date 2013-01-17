@@ -12,38 +12,38 @@
       <input type="hidden" name="id" value="<%= @evacuee.object %>"/>
 
       <div data-role="fieldcontain">
-        <label for="evacuee-sei" class="fieldLabel">姓</label>
-        <input type="text" id="evacuee-sei" name="evacuee[sei]" value="<%= @evacuee.sei %>" />
+        <label for="evacuee-family_name" class="fieldLabel">姓</label>
+        <input type="text" id="evacuee-family_name" name="evacuee[family_name]" value="<%= @evacuee.family_name %>" />
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-mei" class="fieldLabel">名</label>
-        <input type="text" id="evacuee-mei" name="evacuee[mei]" value="<%= @evacuee.mei %>" />
+        <label for="evacuee-given_name" class="fieldLabel">名</label>
+        <input type="text" id="evacuee-given_name" name="evacuee[given_name]" value="<%= @evacuee.given_name %>" />
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-sei_kana" class="fieldLabel">姓（カナ）</label>
-        <input type="text" id="evacuee-sei_kana" name="evacuee[sei_kana]" value="<%= @evacuee.sei_kana %>" />
+        <label for="evacuee-alternate_family_name" class="fieldLabel">姓（カナ）</label>
+        <input type="text" id="evacuee-alternate_family_name" name="evacuee[alternate_family_name]" value="<%= @evacuee.alternate_family_name %>" />
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-mei_kana" class="fieldLabel">名（カナ）</label>
-        <input type="text" id="evacuee-mei_kana" name="evacuee[mei_kana]" value="<%= @evacuee.mei_kana %>" />
+        <label for="evacuee-alternate_given_name" class="fieldLabel">名（カナ）</label>
+        <input type="text" id="evacuee-alternate_given_name" name="evacuee[alternate_given_name]" value="<%= @evacuee.alternate_given_name %>" />
       </div>
   
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" class="ui-grid-a">
           <legend>生年月日</legend> 
           <div class="ui-block-a">
-            <%= select_year_tag :name => "evacuee[birthday_year]", :id => "evacuee-birthday_year", :data_theme => "d", :value => @evacuee.birthday_year %>
+            <%= select_year_tag :name => "evacuee[date_of_birth_year]", :id => "evacuee-date_of_birth_year", :data_theme => "d", :value => @evacuee.date_of_birth_year %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">年</h3></div>
           <div class="ui-block-a">
-            <%= select_month_tag :name => "evacuee[birthday_month]", :id => "evacuee-birthday_month", :data_theme => "d", :value => @evacuee.birthday_month %>
+            <%= select_month_tag :name => "evacuee[date_of_birth_month]", :id => "evacuee-date_of_birth_month", :data_theme => "d", :value => @evacuee.date_of_birth_month %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">月</h3></div>
           <div class="ui-block-a">
-            <%= select_day_tag :name => "evacuee[birthday_day]", :id => "evacuee-birthday_day", :data_theme => "d", :value => @evacuee.birthday_day %>
+            <%= select_day_tag :name => "evacuee[date_of_birth_day]", :id => "evacuee-date_of_birth_day", :data_theme => "d", :value => @evacuee.date_of_birth_day %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
         </fieldset>
@@ -62,79 +62,79 @@
       <div data-role="fieldcontain"> 
         <fieldset data-role="controlgroup" data-type="horizontal"> 
           <legend>市外区分</legend> 
-          <input type="radio" name="evacuee[local_toll]" id="evacuee-local_toll-1" value="1" data-theme="d" <%= checked("1", @evacuee.local_toll) %> /> 
-          <label for="evacuee-local_toll-1">市内</label> 
-          <input type="radio" name="evacuee[local_toll]" id="evacuee-local_toll-2" value="2" data-theme="d" <%= checked("2", @evacuee.local_toll) %> /> 
-          <label for="evacuee-local_toll-2">市外</label> 
+          <input type="radio" name="evacuee[in_city_flag]" id="evacuee-in_city_flag-1" value="1" data-theme="d" <%= checked("1", @evacuee.in_city_flag) %> /> 
+          <label for="evacuee-in_city_flag-1">市内</label> 
+          <input type="radio" name="evacuee[in_city_flag]" id="evacuee-in_city_flag-2" value="2" data-theme="d" <%= checked("2", @evacuee.in_city_flag) %> /> 
+          <label for="evacuee-in_city_flag-2">市外</label> 
         </fieldset> 
       </div> 
   
       <div data-role="fieldcontain">
-        <label for="evacuee-zip_code" class="fieldLabel">郵便番号</label>
-        <input type="text" id="evacuee-zip_code" name="evacuee[zip_code]" value="<%= @evacuee.zip_code %>" />
+        <label for="evacuee-home_postal_code" class="fieldLabel">郵便番号</label>
+        <input type="text" id="evacuee-home_postal_code" name="evacuee[home_postal_code]" value="<%= @evacuee.home_postal_code %>" />
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-prefecture" class="select">都道府県</label>
-        <select name="evacuee[prefecture]" id="evacuee-prefecture" data-theme="d"> 
-          <%= prefecture_options(@evacuee.prefecture) %>
+        <label for="evacuee-home_state" class="select">都道府県</label>
+        <select name="evacuee[home_state]" id="evacuee-home_state" data-theme="d"> 
+          <%= state_options(@evacuee.home_state) %>
         </select> 
       </div>
       <div data-role="fieldcontain">
-        <label for="evacuee-city" class="select">市区町村</label>
-        <select name="evacuee[city]" id="evacuee-city" data-theme="d"> 
-          <%= city_options(@evacuee.prefecture, @evacuee.city) %>
+        <label for="evacuee-home_city" class="select">市区町村</label>
+        <select name="evacuee[home_city]" id="evacuee-home_city" data-theme="d"> 
+          <%= city_options(@evacuee.home_state, @evacuee.home_city) %>
         </select> 
       </div>
       <div data-role="fieldcontain">
-        <label for="evacuee-town" class="select">町目字</label>
-        <select name="evacuee[town]" id="evacuee-town" data-theme="d"> 
-          <%= town_options(@evacuee.prefecture, @evacuee.city, @evacuee.town) %>
+        <label for="evacuee-home_street" class="select">町名</label>
+        <select name="evacuee[home_street]" id="evacuee-home_street" data-theme="d"> 
+          <%= street_options(@evacuee.home_state, @evacuee.home_city, @evacuee.home_street) %>
         </select> 
       </div>
       <div data-role="fieldcontain">
-        <label for="evacuee-address" class="fieldLabel">番地号</label>
-        <input type="text" id="evacuee-address" name="evacuee[address]" value="<%= @evacuee.address %>" />
+        <label for="evacuee-house_number" class="fieldLabel">番地</label>
+        <input type="text" id="evacuee-house_number" name="evacuee[house_number]" value="<%= @evacuee.house_number %>" />
       </div>
 
       <div data-role="fieldcontain">
-        <label for="evacuee-shelter" class="select">避難所</label>
-        <%= select_shelter_tag :name => "evacuee[shelter]", :id => "evacuee-shelter", :data_theme => "d", :value => @evacuee.shelter %>
+        <label for="evacuee-shelter_name" class="select">避難所</label>
+        <%= select_shelter_tag :name => "evacuee[shelter_name]", :id => "evacuee-shelter_name", :data_theme => "d", :value => @evacuee.shelter_name %>
       </div>
 
       <div data-role="fieldcontain">
-        <label for="evacuee-evacuation_status" class="fieldLabel">避難状況</label>
-        <select name="evacuee[evacuation_status]" id="evacuee-evacuation_status" data-theme="d"> 
-          <%= master_options("evacuation_status", false, @evacuee.evacuation_status) %>
+        <label for="evacuee-refuge_status" class="fieldLabel">避難状況</label>
+        <select name="evacuee[refuge_status]" id="evacuee-refuge_status" data-theme="d"> 
+          <%= master_options("refuge_status", false, @evacuee.refuge_status) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-evacuation_reason" class="fieldLabel">避難理由</label>
-        <textarea id="evacuee-evacuation_reason" name="evacuee[evacuation_reason]" maxlength="4000" ><%= @evacuee.evacuation_reason %></textarea>
+        <label for="evacuee-refuge_reason" class="fieldLabel">避難理由</label>
+        <textarea id="evacuee-refuge_reason" name="evacuee[refuge_reason]" maxlength="4000" ><%= @evacuee.refuge_reason %></textarea>
       </div>
 
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup"> 
           <legend>家族</legend> 
-          <input type="checkbox" id="evacuee-famiry_well" name="evacuee[famiry_well]" class="custom" data-theme="d" <%= checked("true", @evacuee.famiry_well) %> />
+          <input type="checkbox" id="evacuee-famiry_well" name="evacuee[famiry_well]" class="custom" data-theme="d" value="true" <%= checked("true", @evacuee.famiry_well) %> />
           <label for="evacuee-famiry_well">家族も無事</label>
         </fieldset>
       </div>
   
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" class="ui-grid-a">
-          <legend>入所日</legend> 
+          <legend>入所年月日</legend> 
           <div class="ui-block-a">
-            <%= select_year_tag :name => "evacuee[in_date_year]", :id => "evacuee-in_date_year", :data_theme => "d", :value => @evacuee.in_date_year %>
+            <%= select_year_tag :name => "evacuee[shelter_entry_date_year]", :id => "evacuee-shelter_entry_date_year", :data_theme => "d", :value => @evacuee.shelter_entry_date_year %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">年</h3></div>
           <div class="ui-block-a">
-            <%= select_month_tag :name => "evacuee[in_date_month]", :id => "evacuee-in_date_month", :data_theme => "d", :value => @evacuee.in_date_month %>
+            <%= select_month_tag :name => "evacuee[shelter_entry_date_month]", :id => "evacuee-shelter_entry_date_month", :data_theme => "d", :value => @evacuee.shelter_entry_date_month %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">月</h3></div>
           <div class="ui-block-a">
-            <%= select_day_tag :name => "evacuee[in_date_day]", :id => "evacuee-in_date_day", :data_theme => "d", :value => @evacuee.in_date_day %>
+            <%= select_day_tag :name => "evacuee[shelter_entry_date_day]", :id => "evacuee-shelter_entry_date_day", :data_theme => "d", :value => @evacuee.shelter_entry_date_day %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
         </fieldset>
@@ -142,53 +142,53 @@
   
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" class="ui-grid-a">
-          <legend>退所日</legend> 
+          <legend>退所年月日</legend> 
           <div class="ui-block-a">
-            <%= select_year_tag :name => "evacuee[out_date_year]", :id => "evacuee-out_date_year", :data_theme => "d", :value => @evacuee.out_date_year %>
+            <%= select_year_tag :name => "evacuee[shelter_leave_date_year]", :id => "evacuee-shelter_leave_date_year", :data_theme => "d", :value => @evacuee.shelter_leave_date_year %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">年</h3></div>
           <div class="ui-block-a">
-            <%= select_month_tag :name => "evacuee[out_date_month]", :id => "evacuee-out_date_month", :data_theme => "d", :value => @evacuee.out_date_month %>
+            <%= select_month_tag :name => "evacuee[shelter_leave_date_month]", :id => "evacuee-shelter_leave_date_month", :data_theme => "d", :value => @evacuee.shelter_leave_date_month %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">月</h3></div>
           <div class="ui-block-a">
-            <%= select_day_tag :name => "evacuee[out_date_day]", :id => "evacuee-out_date_day", :data_theme => "d", :value => @evacuee.out_date_day %>
+            <%= select_day_tag :name => "evacuee[shelter_leave_date_day]", :id => "evacuee-shelter_leave_date_day", :data_theme => "d", :value => @evacuee.shelter_leave_date_day %>
           </div>
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
         </fieldset>
       </div>
       <div data-role="fieldcontain">
-        <label for="evacuee-destination" class="fieldLabel">退所先</label>
-        <input type="text" id="evacuee-destination" name="evacuee[destination]" value="<%= @evacuee.destination %>" />
+        <label for="evacuee-next_place" class="fieldLabel">退所先</label>
+        <input type="text" id="evacuee-next_place" name="evacuee[next_place]" value="<%= @evacuee.next_place %>" />
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-destination_telno" class="fieldLabel">退所先電話番号</label>
-        <input type="text" id="evacuee-destination_telno" name="evacuee[destination_telno]" value="<%= @evacuee.destination_telno %>" />
+        <label for="evacuee-next_place_phone" class="fieldLabel">退所先電話番号</label>
+        <input type="text" id="evacuee-next_place_phone" name="evacuee[next_place_phone]" value="<%= @evacuee.next_place_phone %>" />
       </div>
   
       <div data-role="fieldcontain"> 
         <fieldset data-role="controlgroup" data-type="horizontal"> 
           <legend>負傷</legend> 
-          <%= master_radios "injury", :data_theme => "d", :value => @evacuee.injury %>
+          <%= master_radios "injury_flag", :data_theme => "d", :value => @evacuee.injury_flag %>
         </fieldset> 
       </div>
 
       <div data-role="fieldcontain">
-        <label for="evacuee-injury_content" class="fieldLabel">負傷内容</label>
-        <textarea id="evacuee-injury_content" name="evacuee[injury_content]" maxlength="4000" ><%= @evacuee.injury_content %></textarea>
+        <label for="evacuee-injury_flag_content" class="fieldLabel">負傷内容</label>
+        <textarea id="evacuee-injury_flag_content" name="evacuee[injury_flag_content]" maxlength="4000" ><%= @evacuee.injury_flag_content %></textarea>
       </div>
   
       <div data-role="fieldcontain"> 
         <fieldset data-role="controlgroup" data-type="horizontal"> 
           <legend>アレルギー</legend> 
-          <%= master_radios "allergy", :data_theme => "d", :value => @evacuee.allergy %>
+          <%= master_radios "allergy_flag", :data_theme => "d", :value => @evacuee.allergy_flag %>
         </fieldset> 
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-allergic_substance" class="fieldLabel">アレルギー物質</label>
-        <textarea id="evacuee-allergic_substance" name="evacuee[allergic_substance]" maxlength="4000" ><%= @evacuee.allergic_substance %></textarea>
+        <label for="evacuee-allergy_cause" class="fieldLabel">アレルギー物質</label>
+        <textarea id="evacuee-allergy_cause" name="evacuee[allergy_cause]" maxlength="4000" ><%= @evacuee.allergy_cause %></textarea>
       </div>
   
       <div data-role="fieldcontain"> 
@@ -206,23 +206,23 @@
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-nursing_care" class="select">要介護度３以上</label>
-        <select name="evacuee[nursing_care]" id="evacuee-nursing_care" data-theme="d"> 
-          <%= master_options("nursing_care", false, @evacuee.nursing_care) %>
+        <label for="evacuee-upper_care_level_three" class="select">要介護度３以上</label>
+        <select name="evacuee[upper_care_level_three]" id="evacuee-upper_care_level_three" data-theme="d"> 
+          <%= master_options("upper_care_level_three", false, @evacuee.upper_care_level_three) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-single_elderly" class="select">一人暮らし高齢者</label>
-        <select name="evacuee[single_elderly]" id="evacuee-single_elderly" data-theme="d"> 
-          <%= master_options("single_elderly", false, @evacuee.single_elderly) %>
+        <label for="evacuee-elderly_alone" class="select">一人暮らし高齢者</label>
+        <select name="evacuee[elderly_alone]" id="evacuee-elderly_alone" data-theme="d"> 
+          <%= master_options("elderly_alone", false, @evacuee.elderly_alone) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-household_elderly" class="select">高齢者世帯</label>
-        <select name="evacuee[household_elderly]" id="evacuee-household_elderly" data-theme="d"> 
-          <%= master_options("household_elderly", false, @evacuee.household_elderly) %>
+        <label for="evacuee-elderly_couple" class="select">高齢者世帯</label>
+        <select name="evacuee[elderly_couple]" id="evacuee-elderly_couple" data-theme="d"> 
+          <%= master_options("elderly_couple", false, @evacuee.elderly_couple) %>
         </select> 
       </div>
   
@@ -234,16 +234,16 @@
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-demented_elderly" class="select">認知症高齢者</label>
-        <select name="evacuee[demented_elderly]" id="evacuee-demented_elderly" data-theme="d"> 
-          <%= master_options("demented_elderly", false, @evacuee.demented_elderly) %>
+        <label for="evacuee-elderly_dementia" class="select">認知症高齢者</label>
+        <select name="evacuee[elderly_dementia]" id="evacuee-elderly_dementia" data-theme="d"> 
+          <%= master_options("elderly_dementia", false, @evacuee.elderly_dementia) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-treatment_record_holder" class="select">療育手帳所持者</label>
-        <select name="evacuee[treatment_record_holder]" id="evacuee-treatment_record_holder" data-theme="d"> 
-          <%= master_options("treatment_record_holder", false, @evacuee.treatment_record_holder) %>
+        <label for="evacuee-rehabilitation_certificate" class="select">療育手帳所持者</label>
+        <select name="evacuee[rehabilitation_certificate]" id="evacuee-rehabilitation_certificate" data-theme="d"> 
+          <%= master_options("rehabilitation_certificate", false, @evacuee.rehabilitation_certificate) %>
         </select> 
       </div>
 
@@ -255,8 +255,8 @@
       </div>
   
       <div data-role="fieldcontain">
-        <label for="evacuee-remarks" class="fieldLabel">備考</label>
-        <textarea id="evacuee-remarks" name="evacuee[remarks]" maxlength="4000" ><%= @evacuee.remarks %></textarea>
+        <label for="evacuee-note" class="fieldLabel">備考</label>
+        <textarea id="evacuee-note" name="evacuee[note]" maxlength="4000" ><%= @evacuee.note %></textarea>
       </div>
   
       <fieldset class="ui-grid-b">

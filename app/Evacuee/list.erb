@@ -16,10 +16,10 @@
         <li>
           <a href="<%= url_for :action => :edit, :id => evacuee.object %>">
             <div class="ui-grid-a">
-              <div class="ui-block-a"><%= evacuee.sei %></div>
-              <div class="ui-block-b"><%= evacuee.mei %></div>
-              <div class="ui-block-a"><%= evacuee.birthday.nil? or evacuee.birthday.empty? ? "" : "#{evacuee.birthday_year}/#{evacuee.birthday_month}/#{evacuee.birthday_day}" %></div>
-              <div class="ui-block-b"><%= Shelter.find_name(evacuee.shelter) %></div>
+              <div class="ui-block-a"><%= evacuee.family_name %></div>
+              <div class="ui-block-b"><%= evacuee.given_name %></div>
+              <div class="ui-block-a"><%= evacuee.date_of_birth.nil? or evacuee.date_of_birth.empty? ? "" : "#{evacuee.date_of_birth_year}/#{evacuee.date_of_birth_month}/#{evacuee.date_of_birth_day}" %></div>
+              <div class="ui-block-b"><%= Shelter.find_name(evacuee.shelter_name) %></div>
             </div>
           </a>
         </li>

@@ -145,12 +145,12 @@ module BrowserHelper
   # _value_ :: 指定された値と一致する選択肢を選択状態にします
   # ==== Return
   # オプションタグのHTML
-  def prefecture_options(value="")
+  def state_options(value="")
     address = Address.all
     tag = %(<option value="">－</option>)
-    address.each do |pref_cd, data|
-      tag << %(<option value="#{pref_cd}" )
-      tag << selected(pref_cd, value)
+    address.each do |state_cd, data|
+      tag << %(<option value="#{state_cd}" )
+      tag << selected(state_cd, value)
       tag << %(>#{data[""]}</option>)
     end
     tag
@@ -158,12 +158,12 @@ module BrowserHelper
   
   # 市区町村のオプションタグのHTMLを返します
   # ==== Args
-  # _pref_cd_ :: 都道府県コード
+  # _state_cd_ :: 都道府県コード
   # _value_ :: 指定された値と一致する選択肢を選択状態にします
   # ==== Return
   # オプションタグのHTML
-  def city_options(pref_cd, value="")
-    cities = Address.find_cities(pref_cd)
+  def city_options(state_cd, value="")
+    cities = Address.find_cities(state_cd)
     tag = %(<option value="">－</option>)
     cities.each do |city_cd, city|
       next if city_cd == ""      
@@ -176,18 +176,18 @@ module BrowserHelper
   
   # 町目字のオプションタグのHTMLを返します
   # ==== Args
-  # _pref_cd_ :: 都道府県コード
+  # _state_cd_ :: 都道府県コード
   # _city_cd_ :: 市区町村コード
   # _value_ :: 指定された値と一致する選択肢を選択状態にします
   # ==== Return
   # オプションタグのHTML
-  def town_options(pref_cd, city_cd, value="")
-    towns = Address.find_towns(pref_cd, city_cd)
+  def street_options(state_cd, city_cd, value="")
+    streets = Address.find_streets(state_cd, city_cd)
     tag = %(<option value="">－</option>)
-    towns.each do |town_cd, name|
-      next if town_cd == ""      
-      tag << %(<option value="#{town_cd}" )
-      tag << selected(town_cd, value)
+    streets.each do |street_cd, name|
+      next if street_cd == ""      
+      tag << %(<option value="#{street_cd}" )
+      tag << selected(street_cd, value)
       tag << %(>#{name}</option>)
     end
     tag
