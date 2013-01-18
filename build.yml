@@ -1,6 +1,6 @@
 #sdk: "C:/MotorolaRhoMobileSuite2.1.1.7/ruby/lib/ruby/gems/1.9.1/gems/rhodes-3.4.2"
 sdkversion: "3.4.0"
-name: "PersonFinderMobile"
+name: "LGDPM-Android"
 version: 1.0
 vendor: "rhomobile"
 build: "debug"

@@ -1,3 +1,4 @@
+# encoding: utf-8
 # 避難者データモデル
 class Evacuee
   include Rhom::PropertyBag
@@ -9,7 +10,7 @@ class Evacuee
   # ==== Return
   # 避難者データ
   def self.find_by_condition(page, conditions={})
-    Evacuee.paginate(:page => page, :per_page => Rho::RhoConfig.pf_per_page.to_i, :conditions => create_advanced_query_conditions(conditions), 
+    Evacuee.paginate(:page => page, :per_page => Rho::RhoConfig.lgdpm_per_page.to_i, :conditions => create_advanced_query_conditions(conditions), 
       :op => 'AND', :select => ['family_name','given_name', 'date_of_birth', 'date_of_birth_year', 'date_of_birth_month', 'date_of_birth_day','shelter_name'],
       :order => ['alternate_family_name', 'alternate_given_name'])
   end

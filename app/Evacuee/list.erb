@@ -1,4 +1,4 @@
-<div data-role="page" data-theme="b" data-title="PersonFinder">
+<div data-role="page" data-theme="b" data-title="LGDPM-Android">
 
   <div data-role="header" data-position="inline" >
     <h1>検索結果</h1>
@@ -26,7 +26,7 @@
       <% end %>
     </ul>
   </div>
-  <% if Rho::RhoConfig.pf_per_page.to_i < @all_num %>
+  <% if Rho::RhoConfig.lgdpm_per_page.to_i < @all_num %>
     <div data-role="footer" data-theme="a" class="ui-bar ui-grid-b">
       <div class="ui-block-a" style="text-align:center;">
         <%= page_up_tag :page => get_current_page() %>

@@ -1,4 +1,4 @@
-<div data-role="page" data-theme="b" id="evacuee-edit" data-title="PersonFinder">
+<div data-role="page" data-theme="b" id="evacuee-edit" data-title="LGDPM-Android">
 
   <div data-role="header" data-position="inline">
     <h1>避難者更新</h1>
@@ -52,20 +52,14 @@
       <div data-role="fieldcontain"> 
         <fieldset data-role="controlgroup" data-type="horizontal"> 
           <legend>性別</legend> 
-            <input type="radio" name="evacuee[sex]" id="evacuee-sex-1" value="1" data-theme="d" <%= checked("1", @evacuee.sex) %> /> 
-            <label for="evacuee-sex-1">男性</label> 
-            <input type="radio" name="evacuee[sex]" id="evacuee-sex-2" value="2" data-theme="d" <%= checked("2", @evacuee.sex) %> /> 
-            <label for="evacuee-sex-2">女性</label> 
+            <%= master_radios "sex", :data_theme => "d", :value => @evacuee.sex %>
         </fieldset> 
       </div> 
         
       <div data-role="fieldcontain"> 
         <fieldset data-role="controlgroup" data-type="horizontal"> 
           <legend>市外区分</legend> 
-          <input type="radio" name="evacuee[in_city_flag]" id="evacuee-in_city_flag-1" value="1" data-theme="d" <%= checked("1", @evacuee.in_city_flag) %> /> 
-          <label for="evacuee-in_city_flag-1">市内</label> 
-          <input type="radio" name="evacuee[in_city_flag]" id="evacuee-in_city_flag-2" value="2" data-theme="d" <%= checked("2", @evacuee.in_city_flag) %> /> 
-          <label for="evacuee-in_city_flag-2">市外</label> 
+          <%= master_radios "in_city_flag", :data_theme => "d", :value => @evacuee.in_city_flag %>
         </fieldset> 
       </div> 
   
@@ -105,7 +99,7 @@
       <div data-role="fieldcontain">
         <label for="evacuee-refuge_status" class="fieldLabel">避難状況</label>
         <select name="evacuee[refuge_status]" id="evacuee-refuge_status" data-theme="d"> 
-          <%= master_options("refuge_status", false, @evacuee.refuge_status) %>
+          <%= master_options("refuge_status", :value => @evacuee.refuge_status) %>
         </select> 
       </div>
   
@@ -194,63 +188,63 @@
       <div data-role="fieldcontain"> 
         <label for="evacuee-pregnancy" class="select">妊婦</label>
         <select name="evacuee[pregnancy]" id="evacuee-pregnancy" data-theme="d"> 
-          <%= master_options("pregnancy", false, @evacuee.pregnancy) %>
+          <%= master_options("pregnancy", :value => @evacuee.pregnancy) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain"> 
         <label for="evacuee-baby" class="select">乳幼児</label>
         <select name="evacuee[baby]" id="evacuee-baby" data-theme="d"> 
-          <%= master_options("baby", false, @evacuee.baby) %>
+          <%= master_options("baby", :value => @evacuee.baby) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-upper_care_level_three" class="select">要介護度３以上</label>
         <select name="evacuee[upper_care_level_three]" id="evacuee-upper_care_level_three" data-theme="d"> 
-          <%= master_options("upper_care_level_three", false, @evacuee.upper_care_level_three) %>
+          <%= master_options("upper_care_level_three", :value => @evacuee.upper_care_level_three) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-elderly_alone" class="select">一人暮らし高齢者</label>
         <select name="evacuee[elderly_alone]" id="evacuee-elderly_alone" data-theme="d"> 
-          <%= master_options("elderly_alone", false, @evacuee.elderly_alone) %>
+          <%= master_options("elderly_alone", :value => @evacuee.elderly_alone) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-elderly_couple" class="select">高齢者世帯</label>
         <select name="evacuee[elderly_couple]" id="evacuee-elderly_couple" data-theme="d"> 
-          <%= master_options("elderly_couple", false, @evacuee.elderly_couple) %>
+          <%= master_options("elderly_couple", :value => @evacuee.elderly_couple) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-bedridden_elderly" class="select">寝たきり高齢者</label>
         <select name="evacuee[bedridden_elderly]" id="evacuee-bedridden_elderly" data-theme="d"> 
-          <%= master_options("bedridden_elderly", false, @evacuee.bedridden_elderly) %>
+          <%= master_options("bedridden_elderly", :value => @evacuee.bedridden_elderly) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-elderly_dementia" class="select">認知症高齢者</label>
         <select name="evacuee[elderly_dementia]" id="evacuee-elderly_dementia" data-theme="d"> 
-          <%= master_options("elderly_dementia", false, @evacuee.elderly_dementia) %>
+          <%= master_options("elderly_dementia", :value => @evacuee.elderly_dementia) %>
         </select> 
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-rehabilitation_certificate" class="select">療育手帳所持者</label>
         <select name="evacuee[rehabilitation_certificate]" id="evacuee-rehabilitation_certificate" data-theme="d"> 
-          <%= master_options("rehabilitation_certificate", false, @evacuee.rehabilitation_certificate) %>
+          <%= master_options("rehabilitation_certificate", :value => @evacuee.rehabilitation_certificate) %>
         </select> 
       </div>
 
       <div data-role="fieldcontain">
         <label for="evacuee-physical_disability_certificate" class="select">身体障害者手帳所持者</label>
         <select name="evacuee[physical_disability_certificate]" id="evacuee-physical_disability_certificate" data-theme="d"> 
-          <%= master_options("physical_disability_certificate", false, @evacuee.physical_disability_certificate) %>
+          <%= master_options("physical_disability_certificate", :value => @evacuee.physical_disability_certificate) %>
         </select> 
       </div>
   

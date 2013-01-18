@@ -39,7 +39,7 @@ MaxLogFileSize=50000
 logserver = 'http://rhologs.heroku.com' 
 
 # log file prefix - contain human-readable text
-logname='PersonFinder'
+logname='LGDPM'
 
 # Keep track of the last visited page
 KeepTrackOfLastVisitedPage = 0 
@@ -85,10 +85,25 @@ jqtouch_mode=1
 
 splash_screen='zoom'
 
-pf_max_year=130
-pf_upload_url='http://192.168.0.1/evacuees.json'
-pf_address_download_url='http://192.168.0.1/address.json'
-pf_per_page=4
-pf_max_evacuees=5000
-pf_default_state=04
-pf_default_city=202
+lgdpm_max_year=130
+lgdpm_upload_url='http://192.168.0.1/evacuees.json'
+lgdpm_address_download_url='http://192.168.0.1/address.json'
+lgdpm_shelter_download_url='http://192.168.0.1/shelter.json'
+lgdpm_master_download_url='http://192.168.0.1/master.json'
+lgdpm_per_page=4
+lgdpm_max_evacuees=5000
+lgdpm_default_state=04
+lgdpm_default_city=202
+lgdpm_default_in_city_flag=
+lgdpm_default_refuge_status=
+lgdpm_default_injury_flag=
+lgdpm_default_allergy_flag=
+lgdpm_default_pregnancy=0
+lgdpm_default_baby=0
+lgdpm_default_upper_care_level_three=00
+lgdpm_default_elderly_alone=0
+lgdpm_default_elderly_couple=0
+lgdpm_default_bedridden_elderly=0
+lgdpm_default_elderly_dementia=0
+lgdpm_default_rehabilitation_certificate=99
+lgdpm_default_physical_disability_certificate=0

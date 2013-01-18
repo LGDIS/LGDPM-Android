@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
 require 'helpers/application_helper'
@@ -30,7 +31,7 @@ class EvacueeController < Rho::RhoController
   # GET /Evacuee/do_search_again
   def do_search_again
     @all_num = Evacuee.count_by_condition(@@search_condition)
-    per_page = Rho::RhoConfig.pf_per_page.to_i
+    per_page = Rho::RhoConfig.lgdpm_per_page.to_i
     if @all_num < @@page * per_page
       @@page = @all_num / per_page
       @@page += 1 unless @all_num % per_page == 0
@@ -57,15 +58,12 @@ class EvacueeController < Rho::RhoController
   # 登録画面表示
   # GET /Evacuee/new
   def new
-    if Evacuee.count_by_condition() >= Rho::RhoConfig.pf_max_evacuees.to_i
+    if Evacuee.count_by_condition() >= Rho::RhoConfig.lgdpm_max_evacuees.to_i
       Alert.show_popup "最大登録件数に達しました。サーバ送信を行なってください。"
       redirect Rho::RhoConfig.start_path  
     end
     
-    state = Rho::RhoConfig.pf_default_state
-    city = Rho::RhoConfig.pf_default_city
-    @@current_shelter ||= ""
-    @evacuee = Evacuee.new({'home_state' => state, 'home_city' => city, 'shelter_name' => @@current_shelter})
+    @evacuee = Evacuee.new(default_values())
     render :action => :new, :back => Rho::RhoConfig.start_path
   end
 
@@ -117,5 +115,33 @@ class EvacueeController < Rho::RhoController
   def login
     Alert.show_popup "開発中"
     redirect Rho::RhoConfig.start_path  
+  end
+
+  private
+  # 登録画面デフォルト値を返します
+  # ==== Return
+  # デフォルト値
+  def default_values
+    values = {}
+    values['home_state'] = Rho::RhoConfig.lgdpm_default_state
+    values['home_city'] = Rho::RhoConfig.lgdpm_default_city
+    values['sex'] = Rho::RhoConfig.lgdpm_default_sex
+    values['in_city_flag'] = Rho::RhoConfig.lgdpm_default_in_city_flag
+    values['refuge_status'] = Rho::RhoConfig.lgdpm_default_refuge_status
+    values['injury_flag'] = Rho::RhoConfig.lgdpm_default_injury_flag
+    values['allergy_flag'] = Rho::RhoConfig.lgdpm_default_allergy_flag
+    values['pregnancy'] = Rho::RhoConfig.lgdpm_default_pregnancy
+    values['baby'] = Rho::RhoConfig.lgdpm_default_baby
+    values['upper_care_level_three'] = Rho::RhoConfig.lgdpm_default_upper_care_level_three
+    values['elderly_alone'] = Rho::RhoConfig.lgdpm_default_elderly_alone
+    values['elderly_couple'] = Rho::RhoConfig.lgdpm_default_elderly_couple
+    values['bedridden_elderly'] = Rho::RhoConfig.lgdpm_default_bedridden_elderly
+    values['elderly_dementia'] = Rho::RhoConfig.lgdpm_default_elderly_dementia
+    values['rehabilitation_certificate'] = Rho::RhoConfig.lgdpm_default_rehabilitation_certificate
+    values['physical_disability_certificate'] = Rho::RhoConfig.lgdpm_default_physical_disability_certificate
+    @@current_shelter ||= ""
+    values['shelter_name'] = @@current_shelter
+      
+    values
   end
 end

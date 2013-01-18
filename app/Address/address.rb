@@ -1,3 +1,4 @@
+# encoding: utf-8
 # 住所データモデル
 class Address
   include Rhom::PropertyBag

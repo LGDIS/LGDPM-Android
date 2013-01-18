@@ -1,3 +1,4 @@
+# encoding: utf-8
 # マスタデータモデル
 class Master
   include Rhom::PropertyBag

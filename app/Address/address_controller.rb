@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
 

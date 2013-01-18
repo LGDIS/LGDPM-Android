@@ -33,7 +33,7 @@ module BrowserHelper
     tag << ">"
     tag << %(<option value="">－</option>)
     year = Time.now.year
-    Rho::RhoConfig.pf_max_year.to_i.times do |x|
+    Rho::RhoConfig.lgdpm_max_year.to_i.times do |x|
       tag << %(<option value="#{year - x}" )
       tag << selected(year - x, options[:value])
       tag << %(>#{year - x}</option>)
@@ -105,17 +105,16 @@ module BrowserHelper
   # 指定されたマスタのオプションタグのHTMLを返します
   # ==== Args
   # _kind_ :: マスタ種別
-  # _blank_ :: trueを指定すると、ブランク（－）の選択肢を追加します
-  # _value_ :: 指定された値と一致する選択肢を選択状態にします
+  # _options_ :: オプション
   # ==== Return
   # オプションタグのHTML
-  def master_options(kind, blank=false, value="")
+  def master_options(kind, options={})
     data = Master.find_masters(kind)
     tag = ""
-    tag << %(<option value="">－</option>) if blank
+    tag << %(<option value="">－</option>) if options[:blank]
     data.each do |code, name|
       tag << %(<option value="#{code}" )
-      tag << selected(code, value)
+      tag << selected(code, options[:value])
       tag << %(>#{name}</option>)
     end
     tag
@@ -217,7 +216,7 @@ module BrowserHelper
   # 次ページへ遷移するリンクのHTML
   def page_down_tag(options={})
     tag = ""
-    if (options[:page] + 1) * Rho::RhoConfig.pf_per_page.to_i < options[:num]
+    if (options[:page] + 1) * Rho::RhoConfig.lgdpm_per_page.to_i < options[:num]
       tag << %(<a href="#{url_for :action => :paginate, :query =>{:page => options[:page] + 1} }")
       tag << %( name="#{options[:name]}") if options[:name]
       tag << %( id="#{options[:id]}") if options[:id]
