@@ -86,9 +86,9 @@ jqtouch_mode=1
 splash_screen='zoom'
 
 pf_max_year=130
-pf_upload_url='http://192.168.1.101:3000/evacuees.json'
-pf_address_download_url='http://192.168.1.101:3000/address.json'
+pf_upload_url='http://192.168.0.1/evacuees.json'
+pf_address_download_url='http://192.168.0.1/address.json'
 pf_per_page=4
-pf_max_evacuees=30
+pf_max_evacuees=5000
 pf_default_state=04
 pf_default_city=202
