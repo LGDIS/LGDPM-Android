@@ -158,3 +158,9 @@ function delete_data(url) {
     $.mobile.changePage(url, {type: "post", reverse: true});
   }
 }
+
+function confirm_download(url) {
+  if (confirm("ダウンロードしますか？")) {
+    $.mobile.changePage(url, {type: "get"});
+  }
+}

@@ -22,7 +22,35 @@ class AddressController < Rho::RhoController
 
   # 住所マスタダウンロード 
   def download
-    Alert.show_popup "開発中"
-    redirect Rho::RhoConfig.start_path  
+    file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')
+    File.delete(file_name) if File.exist?(file_name)
+    Rho::AsyncHttp.download_file(
+      :url => Rho::RhoConfig.lgdpm_address_download_url,
+      :filename => file_name,
+      :headers => {},
+      :callback => (url_for :action => :download_callback),
+      :callback_param => "" )
+    render :action => :wait
+  end
+
+  # 住所マスタダウンロードコールバック
+  def download_callback
+    if @params['status'] != 'ok'
+      file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')
+      File.delete(file_name) if File.exist?(file_name)
+      @@error_params = @params
+      WebView.navigate(url_for(:action => :show_error))
+    else
+      Address.load_address()
+      Alert.show_popup "ダウンロード完了"
+      WebView.navigate(Rho::RhoConfig.start_path)
+    end
+  end
+  
+  # エラー表示
+  def show_error
+    @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
+    @error_detail = @@error_params['body']
+    render :action => :error
   end
 end
