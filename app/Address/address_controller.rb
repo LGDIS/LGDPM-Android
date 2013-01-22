@@ -42,7 +42,7 @@ class AddressController < Rho::RhoController
       WebView.navigate(url_for(:action => :show_error))
     else
       Address.load_address()
-      Alert.show_popup "ダウンロード完了"
+      Alert.show_popup "住所マスタのダウンロードが完了しました"
       WebView.navigate(Rho::RhoConfig.start_path)
     end
   end
@@ -50,7 +50,7 @@ class AddressController < Rho::RhoController
   # エラー表示
   def show_error
     @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
-    @error_detail = @@error_params['body']
+    @error_detail = "HTTPステータスコード：#{@@error_params['http_error']}"
     render :action => :error
   end
 end
