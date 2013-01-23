@@ -6,9 +6,37 @@ require 'helpers/browser_helper'
 class MasterController < Rho::RhoController
   include BrowserHelper
 
-  # マスタデータダウンロード 
+  # APPLICマスタダウンロード
   def download
-    Alert.show_popup "開発中"
-    redirect Rho::RhoConfig.start_path  
+    file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
+    File.delete(file_name) if File.exist?(file_name)
+    Rho::AsyncHttp.download_file(
+      :url => Rho::RhoConfig.lgdpm_master_download_url,
+      :filename => file_name,
+      :headers => {},
+      :callback => (url_for :action => :download_callback),
+      :callback_param => "" )
+    render :action => :wait
+  end
+
+  # APPLICマスタダウンロードコールバック
+  def download_callback
+    if @params['status'] != 'ok'
+      file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
+      File.delete(file_name) if File.exist?(file_name)
+      @@error_params = @params
+      WebView.navigate(url_for(:action => :show_error))
+    else
+      Master.load_master()
+      Alert.show_popup "APPLICマスタのダウンロードが完了しました"
+      WebView.navigate(Rho::RhoConfig.start_path)
+    end
+  end
+  
+  # エラー表示
+  def show_error
+    @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
+    @error_detail = "HTTPステータスコード：#{@@error_params['http_error']}"
+    render :action => :error
   end
 end

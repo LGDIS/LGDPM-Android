@@ -1,0 +1,15 @@
+<div data-role="page" data-rho-wait-page="true" data-title="LGDPM-Android">
+  <div data-role="header" data-position="inline">
+    <h1>エラー</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse">
+      メニュー
+    </a>
+  </div>
+  <div data-role="content">
+    <div class="errorMessage">ダウンロード中にエラーが発生しました</div>
+    <br>
+    <div><%= @error_message %><div>
+    <br>
+    <div><%= @error_detail %><div>
+  </div>
+</div>
