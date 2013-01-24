@@ -19,7 +19,6 @@ class LoginController < Rho::RhoController
     Rho::AsyncHttp.post(
       :url => Rho::RhoConfig.lgdpm_login_url,
       :body => "user[login]=#{login}&user[password]=#{password}",
-      :authorization => {:type => :basic, :username => 'test', :password => '1qazxsw2'},
       :callback => (url_for :action => :httppost_callback))
   end
 
