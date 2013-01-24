@@ -86,6 +86,7 @@ jqtouch_mode=1
 splash_screen='zoom'
 
 lgdpm_max_year=130
+lgdpm_login_url='http://192.168.0.1/login.json'
 lgdpm_upload_url='http://192.168.0.1/evacuees.json'
 lgdpm_address_download_url='http://192.168.0.1/address.json'
 lgdpm_shelter_download_url='http://192.168.0.1/shelter.json'

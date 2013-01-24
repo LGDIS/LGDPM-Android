@@ -112,11 +112,21 @@ class EvacueeController < Rho::RhoController
     redirect :action => :do_search_again  
   end
 
-  def login
-    Alert.show_popup "開発中"
-    redirect Rho::RhoConfig.start_path  
+  
+  # 避難者データをアップロードします
+  # POST /Evacuee/upload
+  def upload
+    @@evacuees = Evacuee.find(:all)
+    @@cnt = 0
+    if @@evacuees.empty?
+      Alert.show_popup "避難者データが登録されていません"
+      redirect Rho::RhoConfig.start_path  
+    else
+      @msg = "開発中です"
+      render :action => :wait
+    end
   end
-
+  
   private
   # 登録画面デフォルト値を返します
   # ==== Return

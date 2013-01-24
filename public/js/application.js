@@ -52,6 +52,25 @@ $("#evacuee-search").live("pageinit", function(event) {
   });
 });
 
+$("#login").live("pageinit", function(event) {
+  $("#login-form").submit(function(event) {
+    return false;
+  });
+  $("#login-button").click(function(event) {
+    $("#error_message").empty();
+    $("#error_message").append("サーバにログインしています...");
+    if (validate_login()) {
+      $("#login-button").attr("disabled","disabled");
+      $.post($("#login-form").attr("action"), $("#login-form").serialize());
+    }
+  });
+});
+
+function authentication_error() {
+  $("#error_message").empty();
+  $("#error_message").append("ログイン名またはパスワードが正しくありません。");
+  $("#login-button").removeAttr("disabled");
+}
 
 function setup_address_select() {
   $("#evacuee-home_state").change(function(event) {
@@ -151,6 +170,20 @@ function validate_date(year, month, day) {
 	return true;
   }
   return false;
+}
+function validate_login() {
+  var errors = new Array();
+  if ($("#login_id").val() == "") {
+    errors.push("ログインIDが入力されていません。")
+  }
+  if ($("#password").val() == "") {
+    errors.push("パスワードが入力されていません。")
+  }
+  if (errors.length > 0) {
+	  alert(errors.join("\n"));
+	  return false;
+  }
+  return true;
 }
 
 function delete_data(url) {
