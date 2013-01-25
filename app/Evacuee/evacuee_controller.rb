@@ -85,7 +85,7 @@ class EvacueeController < Rho::RhoController
     concat_date(evacuee, 'date_of_birth')
     concat_date(evacuee, 'shelter_entry_date')
     concat_date(evacuee, 'shelter_leave_date')
-    
+    set_in_city_flag(evacuee)
     @evacuee = Evacuee.new(evacuee)
     @evacuee.save
     @@current_shelter = @evacuee.shelter_name
@@ -100,6 +100,7 @@ class EvacueeController < Rho::RhoController
     concat_date(evacuee, 'date_of_birth')
     concat_date(evacuee, 'shelter_entry_date')
     concat_date(evacuee, 'shelter_leave_date')
+    set_in_city_flag(evacuee)
     @evacuee.update_attributes(evacuee) if @evacuee
     redirect :action => :do_search_again
   end
@@ -128,6 +129,7 @@ class EvacueeController < Rho::RhoController
   end
   
   private
+  
   # 登録画面デフォルト値を返します
   # ==== Return
   # デフォルト値
@@ -135,8 +137,8 @@ class EvacueeController < Rho::RhoController
     values = {}
     values['home_state'] = Rho::RhoConfig.lgdpm_default_state
     values['home_city'] = Rho::RhoConfig.lgdpm_default_city
+    values['home_street'] = Rho::RhoConfig.lgdpm_default_street
     values['sex'] = Rho::RhoConfig.lgdpm_default_sex
-    values['in_city_flag'] = Rho::RhoConfig.lgdpm_default_in_city_flag
     values['refuge_status'] = Rho::RhoConfig.lgdpm_default_refuge_status
     values['injury_flag'] = Rho::RhoConfig.lgdpm_default_injury_flag
     values['allergy_flag'] = Rho::RhoConfig.lgdpm_default_allergy_flag
@@ -149,9 +151,40 @@ class EvacueeController < Rho::RhoController
     values['elderly_dementia'] = Rho::RhoConfig.lgdpm_default_elderly_dementia
     values['rehabilitation_certificate'] = Rho::RhoConfig.lgdpm_default_rehabilitation_certificate
     values['physical_disability_certificate'] = Rho::RhoConfig.lgdpm_default_physical_disability_certificate
-    @@current_shelter ||= ""
+    @@current_shelter ||= Rho::RhoConfig.lgdpm_default_shelter_name
     values['shelter_name'] = @@current_shelter
       
     values
+  end
+  
+  # 日付連結処理
+  # 指定されたパラメータ（Hash）に格納された、年、月、日のデータを連結し、年月日のデータとしてパラメータに格納します。
+  # 年、月、日のキーは、それぞれ、(name)_year[_(suffix)]、 (name)_month[_(suffix)]、(name)_day[_(suffix)]とします。
+  # 格納する年月日のキーは、(name)[_(suffix)]とします。
+  # ==== Args
+  # _params_ :: パラメータ
+  # _name_ :: パラメータに格納されている年、月、日の名前 
+  # _suffix_ :: 接尾語
+  def concat_date(params, name, suffix = "")
+    unless suffix.empty? or suffix.start_with?("_") 
+      suffix = "_" + suffix
+    end
+    unless params["#{name}_year#{suffix}"].empty? or params["#{name}_month#{suffix}"].empty? or params["#{name}_day#{suffix}"].empty?
+      params["#{name}#{suffix}"] = params["#{name}_year#{suffix}"] + params["#{name}_month#{suffix}"] + params["#{name}_day#{suffix}"]
+    end
+  end
+
+  # 市内／市外区分設定処理
+  # 指定されたパラメータ（Hash）に格納された、都道府県、市区町村のデータから、市内／市外区分を判定し、パラメータに格納します。
+  # ==== Args
+  # _params_ :: パラメータ
+  def set_in_city_flag(params)
+    unless blank?(params["home_city"])
+      if params["home_state"] == Rho::RhoConfig.lgdpm_in_city_state and params["home_city"] == Rho::RhoConfig.lgdpm_in_city_city
+        params["in_city_flag"] = Rho::RhoConfig.lgdpm_in_city_flag_in
+      else
+        params["in_city_flag"] = Rho::RhoConfig.lgdpm_in_city_flag_out
+      end
+    end
   end
 end

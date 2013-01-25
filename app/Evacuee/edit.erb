@@ -56,13 +56,6 @@
         </fieldset> 
       </div> 
         
-      <div data-role="fieldcontain"> 
-        <fieldset data-role="controlgroup" data-type="horizontal"> 
-          <legend>市外区分</legend> 
-          <%= master_radios "in_city_flag", :data_theme => "d", :value => @evacuee.in_city_flag %>
-        </fieldset> 
-      </div> 
-  
       <div data-role="fieldcontain">
         <label for="evacuee-home_postal_code" class="fieldLabel">郵便番号</label>
         <input type="text" id="evacuee-home_postal_code" name="evacuee[home_postal_code]" value="<%= @evacuee.home_postal_code %>" />

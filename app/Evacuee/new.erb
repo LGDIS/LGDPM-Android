@@ -46,13 +46,6 @@
           <%= master_radios "sex", :data_theme => "d", :value => @evacuee.sex %>
         </fieldset> 
       </div> 
-        
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="horizontal">
-          <legend>市外区分</legend>
-          <%= master_radios "in_city_flag", :data_theme => "d", :value => @evacuee.in_city_flag %>
-        </fieldset>
-      </div>
 
       <div data-role="fieldcontain">
         <label for="evacuee-home_postal_code" class="fieldLabel">郵便番号</label>
@@ -67,7 +60,7 @@
       </div>
       <div data-role="fieldcontain">
         <label for="evacuee-home_city" class="select">市区町村</label>
-        <select name="evacuee[city]" id="evacuee-home_city" data-theme="d">
+        <select name="evacuee[home_city]" id="evacuee-home_city" data-theme="d">
           <%= city_options(@evacuee.home_state, @evacuee.home_city) %>
         </select>
       </div>

@@ -125,13 +125,4 @@ module ApplicationHelper
   def caller_request_query_to_hash
     @caller_request = Rho::JSON.parse(@params['caller_request']) if @params['caller_request']
   end
-  
-  def concat_date(params, name, suffix = "")
-    unless suffix.empty? or suffix.start_with?("_") 
-      suffix = "_" + suffix
-    end
-    unless params["#{name}_year#{suffix}"].empty? or params["#{name}_month#{suffix}"].empty? or params["#{name}_day#{suffix}"].empty?
-      params["#{name}#{suffix}"] = params["#{name}_year#{suffix}"] + params["#{name}_month#{suffix}"] + params["#{name}_day#{suffix}"]
-    end
-  end
 end
