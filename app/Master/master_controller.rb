@@ -12,17 +12,17 @@ class MasterController < Rho::RhoController
   def download
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
     File.delete(file_name) if File.exist?(file_name)
-    prams = {:url => Rho::RhoConfig.lgdpm_master_download_url,
+    params = {:url => Rho::RhoConfig.lgdpm_master_download_url,
              :filename => file_name,
              :headers => {},
              :callback => (url_for :action => :download_callback),
              :callback_param => ""}
     unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
-      prams[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
+      params[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
                                :username => Rho::RhoConfig.lgdpm_http_server_authentication_username,
                                :password => Rho::RhoConfig.lgdpm_http_server_authentication_password }
     end
-    Rho::AsyncHttp.download_file(prams)
+    Rho::AsyncHttp.download_file(params)
     render :action => :wait
   end
 
