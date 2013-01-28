@@ -1,21 +1,28 @@
 # encoding: utf-8
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
+require 'helpers/application_helper'
 
 # マスタデータコントローラ
 class MasterController < Rho::RhoController
   include BrowserHelper
+  include ApplicationHelper
 
   # APPLICマスタダウンロード
   def download
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
     File.delete(file_name) if File.exist?(file_name)
-    Rho::AsyncHttp.download_file(
-      :url => Rho::RhoConfig.lgdpm_master_download_url,
-      :filename => file_name,
-      :headers => {},
-      :callback => (url_for :action => :download_callback),
-      :callback_param => "" )
+    prams = {:url => Rho::RhoConfig.lgdpm_master_download_url,
+             :filename => file_name,
+             :headers => {},
+             :callback => (url_for :action => :download_callback),
+             :callback_param => ""}
+    unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
+      prams[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
+                               :username => Rho::RhoConfig.lgdpm_http_server_authentication_username,
+                               :password => Rho::RhoConfig.lgdpm_http_server_authentication_password }
+    end
+    Rho::AsyncHttp.download_file(prams)
     render :action => :wait
   end
 

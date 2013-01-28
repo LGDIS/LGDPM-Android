@@ -97,6 +97,10 @@ lgdpm_address_download_url='http://192.168.0.1/address.json'
 lgdpm_shelter_download_url='http://192.168.0.1/shelter.json'
 # APPLICマスタダウンロードURL
 lgdpm_master_download_url='http://192.168.0.1/master.json'
+# HTTPサーバ認証
+#lgdpm_http_server_authentication=basic
+#lgdpm_http_server_authentication_user=user
+#lgdpm_http_server_authentication_password=password
 # 検索結果１画面に表示するデータ数
 lgdpm_per_page=300
 # ローカルDBに登録する避難者の最大数

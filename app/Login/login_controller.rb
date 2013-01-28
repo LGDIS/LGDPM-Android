@@ -5,6 +5,8 @@ require 'helpers/application_helper'
 
 # ログインコントローラ
 class LoginController < Rho::RhoController
+  include ApplicationHelper
+  
   # ログイン画面を表示します
   # GET /Evacuee/login
   def login
@@ -16,10 +18,16 @@ class LoginController < Rho::RhoController
   def do_login
     login = Rho::RhoSupport.url_encode(@params['login'])
     password = Rho::RhoSupport.url_encode(@params['password'])
-    Rho::AsyncHttp.post(
-      :url => Rho::RhoConfig.lgdpm_login_url,
-      :body => "user[login]=#{login}&user[password]=#{password}",
-      :callback => (url_for :action => :httppost_callback))
+    prams = {:url => Rho::RhoConfig.lgdpm_login_url,
+             :body => "user[login]=#{login}&user[password]=#{password}",
+             :callback => (url_for :action => :httppost_callback),
+             :callback_param => ""}
+    unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
+      prams[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
+                               :username => Rho::RhoConfig.lgdpm_http_server_authentication_username,
+                               :password => Rho::RhoConfig.lgdpm_http_server_authentication_password }
+    end
+    Rho::AsyncHttp.post(prams)
   end
 
   # HTTP POST処理のコールバック
