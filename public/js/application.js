@@ -197,3 +197,7 @@ function confirm_download(url) {
     $.mobile.changePage(url, {type: "get"});
   }
 }
+
+function cancel_upload(url) {
+  $.post(url);
+}

@@ -150,6 +150,25 @@ class EvacueeController < Rho::RhoController
   def upload
     @@evacuees = Evacuee.find(:all)
     @@cnt = 0
+    @@canceled = false
+    if @@evacuees.empty?
+      Alert.show_popup "避難者データが登録されていません"
+      redirect Rho::RhoConfig.start_path  
+    else
+      http_post(@@evacuees[@@cnt])
+      wait
+    end
+  end
+
+  # 避難者データをアップロードします
+  # POST /Evacuee/upload
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def upload
+    @@evacuees = Evacuee.find(:all)
+    @@cnt = 0
+    @@canceled = false
     if @@evacuees.empty?
       Alert.show_popup "避難者データが登録されていません"
       redirect Rho::RhoConfig.start_path  
@@ -167,7 +186,7 @@ class EvacueeController < Rho::RhoController
     @msg = "避難者をサーバに登録しています。（#{@@cnt + 1}／#{@@evacuees.size}）"
     render :action => :wait
   end
-  
+
   # 避難者データPOSTコールバック
   # ==== Args
   # ==== Return
@@ -180,14 +199,20 @@ class EvacueeController < Rho::RhoController
       # アップロードしたデータをローカルDBから削除
       @@evacuees[@@cnt].destroy
 
-      # 次のデータをアップロード
-      @@cnt += 1
-      if @@cnt < @@evacuees.size
-        http_post(@@evacuees[@@cnt])
-        WebView.navigate(url_for(:action => :wait))
-      else
-        Alert.show_popup "登録が完了しました。"
+      if @@canceled
+        # キャンセル
+        Alert.show_popup "キャンセルしました。"
         WebView.navigate(Rho::RhoConfig.start_path)
+      else
+        # 次のデータをアップロード
+        @@cnt += 1
+        if @@cnt < @@evacuees.size
+          http_post(@@evacuees[@@cnt])
+          WebView.navigate(url_for(:action => :wait))
+        else
+          Alert.show_popup "登録が完了しました。"
+          WebView.navigate(Rho::RhoConfig.start_path)
+        end
       end
     end
   end
@@ -206,6 +231,15 @@ class EvacueeController < Rho::RhoController
     render :action => :error
   end
 
+  # キャンセル
+  # POST /Evacuee/cancel_upload
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def cancel_upload
+    @@canceled = true
+  end
+  
   private
   
   # 登録画面デフォルト値を返します
