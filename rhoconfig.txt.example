@@ -85,31 +85,19 @@ jqtouch_mode=1
 
 splash_screen='zoom'
 
-# 年選択セレクトボックスに表示する年数
 lgdpm_max_year=130
-# ログインURL
 lgdpm_login_url='http://192.168.0.1/login.json'
-# 避難者アップロードURL
 lgdpm_upload_url='http://192.168.0.1/evacuees.json'
-# 住所マスタダウンロードURL
 lgdpm_address_download_url='http://192.168.0.1/address.json'
-# 避難所マスタダウンロードURL
 lgdpm_shelter_download_url='http://192.168.0.1/shelter.json'
-# APPLICマスタダウンロードURL
 lgdpm_master_download_url='http://192.168.0.1/master.json'
-# HTTPサーバ認証
 #lgdpm_http_server_authentication=basic
 #lgdpm_http_server_authentication_user=user
 #lgdpm_http_server_authentication_password=password
-# 検索結果１画面に表示するデータ数
 lgdpm_per_page=300
-# ローカルDBに登録する避難者の最大数
 lgdpm_max_evacuees=5000
-# 市内・市外区分が市内のなる都道府県
 lgdpm_in_city_state=04
-# 市内・市外区分が市内のなる市区町村
 lgdpm_in_city_city=202
-# 登録画面初期表示時の値
 lgdpm_default_state=04
 lgdpm_default_city=202
 lgdpm_default_street=
