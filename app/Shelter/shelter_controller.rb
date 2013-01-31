@@ -8,6 +8,10 @@ class ShelterController < Rho::RhoController
   include ApplicationHelper
 
   # 避難所マスタダウンロード
+  # GET /Shelter/download
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def download
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Shelter'), 'new_shelter.json')
     File.delete(file_name) if File.exist?(file_name)
@@ -26,6 +30,9 @@ class ShelterController < Rho::RhoController
   end
 
   # 避難所マスタダウンロードコールバック
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def download_callback
     if @params['status'] != 'ok'
       file_name = File.join(Rho::RhoApplication::get_model_path('app','Shelter'), 'new_shelter.json')
@@ -38,8 +45,12 @@ class ShelterController < Rho::RhoController
       WebView.navigate(Rho::RhoConfig.start_path)
     end
   end
-  
+
   # エラー表示
+  # GET /Shelter/show_error
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def show_error
     @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
     @error_detail = "HTTPステータスコード：#{@@error_params['http_error']}"

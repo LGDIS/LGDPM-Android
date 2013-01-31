@@ -9,6 +9,10 @@ class MasterController < Rho::RhoController
   include ApplicationHelper
 
   # APPLICマスタダウンロード
+  # GET /Master/download
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def download
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
     File.delete(file_name) if File.exist?(file_name)
@@ -27,6 +31,9 @@ class MasterController < Rho::RhoController
   end
 
   # APPLICマスタダウンロードコールバック
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def download_callback
     if @params['status'] != 'ok'
       file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
@@ -41,6 +48,10 @@ class MasterController < Rho::RhoController
   end
   
   # エラー表示
+  # GET /Master/show_error
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def show_error
     @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
     @error_detail = "HTTPステータスコード：#{@@error_params['http_error']}"

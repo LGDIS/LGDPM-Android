@@ -9,20 +9,29 @@ class AddressController < Rho::RhoController
   include ApplicationHelper
 
   # 市区町村のオプションタグを返す  
+  # GET /Address/cities
+  # ==== Args
   # ==== Return
   # 市区町村オプションタグ
+  # ==== Raise
   def cities
     render :string => city_options(@params['state_cd']), :partial => true
   end
 
   # 町目字のオプションタグを返す  
+  # GET /Address/streets
+  # ==== Args
   # ==== Return
   # 町目字オプションタグ
+  # ==== Raise
   def streets
     render :string => street_options(@params['state_cd'], @params['city_cd']), :partial => true
   end
 
   # 住所マスタダウンロード 
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def download
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')
     File.delete(file_name) if File.exist?(file_name)
@@ -41,6 +50,10 @@ class AddressController < Rho::RhoController
   end
 
   # 住所マスタダウンロードコールバック
+  # GET /Address/download
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def download_callback
     if @params['status'] != 'ok'
       file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')
@@ -55,6 +68,10 @@ class AddressController < Rho::RhoController
   end
   
   # エラー表示
+  # GET /Address/show_error
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def show_error
     @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
     @error_detail = "HTTPステータスコード：#{@@error_params['http_error']}"
