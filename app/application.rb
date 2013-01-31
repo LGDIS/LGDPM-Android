@@ -10,6 +10,10 @@ class AppApplication < Rho::RhoApplication
     #To remove default toolbar uncomment next line:
     @@toolbar = nil
     super
+    @default_menu = { 
+      "メニュー" => :home,
+      "終了" => :close,
+    } 
 
     # 住所データのロード     
     Address.load_address()
