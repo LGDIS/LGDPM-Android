@@ -25,6 +25,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # 年選択セレクトボックスタグのHTML
+  # ==== Raise
   def select_year_tag(options={})
     tag = %(<select data-mini="true")
     tag << %( name="#{options[:name]}") if options[:name]
@@ -46,6 +47,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # 月選択セレクトボックスタグのHTML
+  # ==== Raise
   def select_month_tag(options={})
     tag = %(<select data-mini="true")
     tag << %( name="#{options[:name]}") if options[:name]
@@ -66,6 +68,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # 日選択セレクトボックスタグのHTML
+  # ==== Raise
   def select_day_tag(options={})
     tag = %(<select data-mini="true")
     tag << %( name="#{options[:name]}") if options[:name]
@@ -86,8 +89,9 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # 避難所選択セレクトボックスタグのHTML
+  # ==== Raise
   def select_shelter_tag(options={})
-    shelters = Shelter.find_shelters()
+    shelters = Shelter.all()
     tag = %(<select)
     tag << %( name="#{options[:name]}") if options[:name]
     tag << %( id="#{options[:id]}") if options[:id]
@@ -108,6 +112,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # オプションタグのHTML
+  # ==== Raise
   def master_options(kind, options={})
     data = Master.find_masters(kind)
     tag = ""
@@ -126,6 +131,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # ラジオボタンのHTML
+  # ==== Raise
   def master_radios(kind, options={})
     data = Master.find_masters(kind)
     tag = ""
@@ -144,6 +150,7 @@ module BrowserHelper
   # _value_ :: 指定された値と一致する選択肢を選択状態にします
   # ==== Return
   # オプションタグのHTML
+  # ==== Raise
   def state_options(value="")
     address = Address.all
     tag = %(<option value="">－</option>)
@@ -161,6 +168,7 @@ module BrowserHelper
   # _value_ :: 指定された値と一致する選択肢を選択状態にします
   # ==== Return
   # オプションタグのHTML
+  # ==== Raise
   def city_options(state_cd, value="")
     cities = Address.find_cities(state_cd)
     tag = %(<option value="">－</option>)
@@ -180,6 +188,7 @@ module BrowserHelper
   # _value_ :: 指定された値と一致する選択肢を選択状態にします
   # ==== Return
   # オプションタグのHTML
+  # ==== Raise
   def street_options(state_cd, city_cd, value="")
     streets = Address.find_streets(state_cd, city_cd)
     tag = %(<option value="">－</option>)
@@ -197,6 +206,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # 前ページへ遷移するリンクのHTML
+  # ==== Raise
   def page_up_tag(options={})
     tag = ""
     if options[:page] > 0 
@@ -214,6 +224,7 @@ module BrowserHelper
   # _options_ :: オプション
   # ==== Return
   # 次ページへ遷移するリンクのHTML
+  # ==== Raise
   def page_down_tag(options={})
     tag = ""
     if (options[:page] + 1) * Rho::RhoConfig.lgdpm_per_page.to_i < options[:num]
