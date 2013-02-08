@@ -1,4 +1,6 @@
 require 'mspec'
+require 'rhom'
+require 'rho/rhoutils'
 
 class SpecRunner < MSpecScript
   def initialize
