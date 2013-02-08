@@ -8,7 +8,7 @@ class Master
   # ==== Return
   # 全マスタデータ
   # ==== Raise
-  def self.all()
+  def self.all
     return @@master
   end
 
@@ -27,7 +27,7 @@ class Master
   # ==== Args
   # ==== Return
   # ==== Raise
-  def self.load_master()
+  def self.load_master
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'new_master.json')
     unless File.exist?(file_name)
       file_name = File.join(Rho::RhoApplication::get_model_path('app','Master'), 'master.json')

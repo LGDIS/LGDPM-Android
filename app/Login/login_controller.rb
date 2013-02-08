@@ -9,12 +9,18 @@ class LoginController < Rho::RhoController
   
   # ログイン画面を表示します
   # GET /Evacuee/login
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def login
     render :action => :login
   end
   
   # ログイン処理を行ないます
   # POST /Evacuee/do_login
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def do_login
     login = Rho::RhoSupport.url_encode(@params['login'])
     password = Rho::RhoSupport.url_encode(@params['password'])
@@ -31,6 +37,9 @@ class LoginController < Rho::RhoController
   end
 
   # HTTP POST処理のコールバック
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def httppost_callback
     if @params['http_error'] == "201"
       # 認証OK
@@ -47,6 +56,9 @@ class LoginController < Rho::RhoController
   end
   
   # エラー表示
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def show_error
     @error_message = Rho::RhoError.new(@@error_params['error_code'].to_i).message
     if @@error_params['http_error']
@@ -58,8 +70,10 @@ class LoginController < Rho::RhoController
   end
   
   # Cookieを返します
+  # ==== Args
   # ==== Return
   # Cookie
+  # ==== Raise
   def self.get_cookie
     @@cookie
   end

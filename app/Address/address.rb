@@ -74,7 +74,7 @@ class Address
   # ==== Args
   # ==== Return
   # ==== Raise
-  def self.load_address()
+  def self.load_address
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')
     unless File.exist?(file_name)
       file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'address.json')

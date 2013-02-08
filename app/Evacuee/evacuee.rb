@@ -58,7 +58,7 @@ class Evacuee
   # ==== Return
   # URLエンコードした結果文字列
   # ==== Raise
-  def url_encode()
+  def url_encode
     qstring = 'commit_kind=save'
     qstring << "&evacuee[family_name]=#{Rho::RhoSupport.url_encode(family_name)}"
     qstring << "&evacuee[given_name]=#{Rho::RhoSupport.url_encode(given_name)}"

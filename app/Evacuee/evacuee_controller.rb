@@ -191,7 +191,7 @@ class EvacueeController < Rho::RhoController
   # ==== Args
   # ==== Return
   # ==== Raise
-  def httppost_callback
+  def http_post_callback
     if @params['status'] != 'ok'
       @@error_params = @params
       WebView.navigate(url_for(:action => :show_error))
@@ -315,7 +315,7 @@ class EvacueeController < Rho::RhoController
   def http_post(data)
     params = {:url => Rho::RhoConfig.lgdpm_upload_url,
              :body => data.url_encode,
-             :callback => (url_for :action => :httppost_callback),
+             :callback => (url_for :action => :http_post_callback),
              :headers => {:cookie => LoginController.get_cookie},
              :callback_param => ""}
     unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
