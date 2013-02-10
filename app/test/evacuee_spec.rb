@@ -2,7 +2,8 @@ describe "Evacuee" do
   before(:all) do
     Rhom::Rhom.database_full_reset
     Rho::RhoUtils.load_offline_data(['object_values'], 'test')
-    Rho::RhoConfig.lgdpm_per_page="300"
+    @lgdpm_per_page = Rho::RhoConfig.lgdpm_per_page
+    Rho::RhoConfig.lgdpm_per_page = "300"
     file_name = File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')
     File.delete(file_name) if File.exist?(file_name)
     Address.load_address()
@@ -235,5 +236,9 @@ commit_kind=save
 &evacuee[note]=%E5%82%99%E8%80%83
 EOS
     end
+  end
+
+  after(:all) do
+    Rho::RhoConfig.lgdpm_per_page = @lgdpm_per_page
   end
 end
