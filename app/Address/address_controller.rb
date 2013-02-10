@@ -29,6 +29,7 @@ class AddressController < Rho::RhoController
   end
 
   # 住所マスタダウンロード 
+  # GET /Address/download
   # ==== Args
   # ==== Return
   # ==== Raise
@@ -50,7 +51,6 @@ class AddressController < Rho::RhoController
   end
 
   # 住所マスタダウンロードコールバック
-  # GET /Address/download
   # ==== Args
   # ==== Return
   # ==== Raise
