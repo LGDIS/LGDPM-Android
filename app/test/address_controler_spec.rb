@@ -18,14 +18,14 @@ describe "AddressController" do
       actual.should == '<option value="">－</option><option value="001" >AA</option><option value="002" >AB</option>'
     end
   end
-  
+
   describe "streets" do
     it "町名オプションタグを返すこと" do
       actual = @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/streets", "state_cd" => "01", "city_cd" => "001"), {})
       actual.should == '<option value="">－</option><option value="0001" >AAA</option><option value="0002" >AAB</option>'
     end
   end
-  
+
   describe "download" do
     before(:all) do
       @lgdpm_http_server_authentication = Rho::RhoConfig.lgdpm_http_server_authentication
@@ -47,6 +47,26 @@ describe "AddressController" do
     after(:all) do
       Rho::RhoConfig.lgdpm_http_server_authentication = @lgdpm_http_server_authentication
       Rho::RhoConfig.lgdpm_address_download_url = @lgdpm_address_download_url
+    end
+  end
+  
+  describe "download_callback" do
+    context "ダウンロード正常終了の場合" do
+      it "住所マスタがロードされ、メニュー画面に遷移すること" do
+        Address.should_receive(:load_address)
+        Alert.should_receive(:show_popup).with("住所マスタのダウンロードが完了しました")
+        WebView.should_receive(:navigate).with(Rho::RhoConfig.start_path)
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/download_callback", "status" => "ok", "rho_callback" => true), {})
+      end
+    end
+    context "ダウンロードエラーの場合" do
+      it "エラー画面に遷移すること" do
+        WebView.should_receive(:navigate).with("/app/Address/show_error")
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/download_callback", "status" => "ng", "rho_callback" => true), {})
+      end
+      it "ファイルが削除されていること" do
+        File.exist?(File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')).should be_false
+      end
     end
   end
 end
