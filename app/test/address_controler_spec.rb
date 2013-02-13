@@ -56,17 +56,27 @@ describe "AddressController" do
         Address.should_receive(:load_address)
         Alert.should_receive(:show_popup).with("住所マスタのダウンロードが完了しました")
         WebView.should_receive(:navigate).with(Rho::RhoConfig.start_path)
-        @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/download_callback", "status" => "ok", "rho_callback" => true), {})
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/download_callback", "status" => "ok", "rho_callback" => "1"), {})
       end
     end
     context "ダウンロードエラーの場合" do
       it "エラー画面に遷移すること" do
         WebView.should_receive(:navigate).with("/app/Address/show_error")
-        @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/download_callback", "status" => "ng", "rho_callback" => true), {})
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/download_callback", "status" => "ng", "rho_callback" => "1"), {})
       end
       it "ファイルが削除されていること" do
         File.exist?(File.join(Rho::RhoApplication::get_model_path('app','Address'), 'new_address.json')).should be_false
       end
+    end
+  end
+
+  describe "show_error" do
+    before(:all) do
+      AddressController.class_variable_set(:@@error_params, {'error_code' => '2', 'http_error' => '404'})
+    end
+    it "エラー画面がレンダリングされること" do
+      @controller.serve(@application, nil, SpecHelper.create_request("GET /Address/show_error"), {})
+      @controller.instance_variable_get(:@content).should == @controller.render(:action => :error)
     end
   end
 end

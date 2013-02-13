@@ -37,17 +37,27 @@ describe "ShelterController" do
         Shelter.should_receive(:load_shelter)
         Alert.should_receive(:show_popup).with("避難所マスタのダウンロードが完了しました")
         WebView.should_receive(:navigate).with(Rho::RhoConfig.start_path)
-        @controller.serve(@application, nil, SpecHelper.create_request("GET /Shelter/download_callback", "status" => "ok", "rho_callback" => true), {})
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Shelter/download_callback", "status" => "ok", "rho_callback" => "1"), {})
       end
     end
     context "ダウンロードエラーの場合" do
       it "エラー画面に遷移すること" do
         WebView.should_receive(:navigate).with("/app/Shelter/show_error")
-        @controller.serve(@application, nil, SpecHelper.create_request("GET /Shelter/download_callback", "status" => "ng", "rho_callback" => true), {})
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Shelter/download_callback", "status" => "ng", "rho_callback" => "1"), {})
       end
       it "ファイルが削除されていること" do
         File.exist?(File.join(Rho::RhoApplication::get_model_path('app','Shelter'), 'new_shelter.json')).should be_false
       end
+    end
+  end
+
+  describe "show_error" do
+    before(:all) do
+      ShelterController.class_variable_set(:@@error_params, {'error_code' => '2', 'http_error' => '404'})
+    end
+    it "エラー画面がレンダリングされること" do
+      @controller.serve(@application, nil, SpecHelper.create_request("GET /Shelter/show_error"), {})
+      @controller.instance_variable_get(:@content).should == @controller.render(:action => :error)
     end
   end
 end
