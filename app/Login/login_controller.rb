@@ -26,7 +26,7 @@ class LoginController < Rho::RhoController
     password = Rho::RhoSupport.url_encode(@params['password'])
     params = {:url => Rho::RhoConfig.lgdpm_login_url,
              :body => "user[login]=#{login}&user[password]=#{password}",
-             :callback => (url_for :action => :httppost_callback),
+             :callback => (url_for :action => :http_post_callback),
              :callback_param => ""}
     unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
       params[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
@@ -40,11 +40,10 @@ class LoginController < Rho::RhoController
   # ==== Args
   # ==== Return
   # ==== Raise
-  def httppost_callback
+  def http_post_callback
     if @params['http_error'] == "201"
       # 認証OK
       @@cookie = @params["cookies"]
-      url = url_for(:controller => :Evacuee, :action => :upload)
       WebView.navigate(url_for(:controller => :Evacuee, :action => :upload))
     elsif  @params['http_error'] == "401"
       # 認証エラー
