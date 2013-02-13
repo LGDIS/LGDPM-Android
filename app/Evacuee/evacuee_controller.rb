@@ -41,8 +41,8 @@ class EvacueeController < Rho::RhoController
   def do_search_again
     @all_num = Evacuee.count_by_condition(@@search_condition)
     per_page = Rho::RhoConfig.lgdpm_per_page.to_i
-    if @all_num < @@page * per_page
-      @@page = @all_num / per_page
+    if @all_num <= @@page * per_page
+      @@page = @all_num / per_page -1
       @@page += 1 unless @all_num % per_page == 0
     end
     
@@ -77,7 +77,7 @@ class EvacueeController < Rho::RhoController
   def new
     if Evacuee.count_by_condition() >= Rho::RhoConfig.lgdpm_max_evacuees.to_i
       Alert.show_popup "最大登録件数に達しました。サーバ送信を行なってください。"
-      redirect Rho::RhoConfig.start_path  
+      redirect Rho::RhoConfig.start_path
     end
     
     @evacuee = Evacuee.new(default_values())
@@ -140,24 +140,6 @@ class EvacueeController < Rho::RhoController
     @evacuee = Evacuee.find(@params['id'])
     @evacuee.destroy if @evacuee
     redirect :action => :do_search_again  
-  end
-
-  # 避難者データをアップロードします
-  # POST /Evacuee/upload
-  # ==== Args
-  # ==== Return
-  # ==== Raise
-  def upload
-    @@evacuees = Evacuee.find(:all)
-    @@cnt = 0
-    @@canceled = false
-    if @@evacuees.empty?
-      Alert.show_popup "避難者データが登録されていません"
-      redirect Rho::RhoConfig.start_path  
-    else
-      http_post(@@evacuees[@@cnt])
-      wait
-    end
   end
 
   # 避難者データをアップロードします
@@ -285,7 +267,7 @@ class EvacueeController < Rho::RhoController
     unless suffix.empty? or suffix.start_with?("_") 
       suffix = "_" + suffix
     end
-    unless params["#{name}_year#{suffix}"].empty? or params["#{name}_month#{suffix}"].empty? or params["#{name}_day#{suffix}"].empty?
+    unless blank?(params["#{name}_year#{suffix}"]) or blank?(params["#{name}_month#{suffix}"]) or blank?(params["#{name}_day#{suffix}"])
       params["#{name}#{suffix}"] = params["#{name}_year#{suffix}"] + params["#{name}_month#{suffix}"] + params["#{name}_day#{suffix}"]
     end
   end

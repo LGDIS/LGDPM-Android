@@ -8,8 +8,10 @@ describe "LoginController" do
   end
 
   describe "login" do
-    it "ログイン画面がレンダリングされること" do
+    before(:all) do
       @controller.serve(@application, nil, SpecHelper.create_request("GET /Login/login"), {})
+    end
+    it "ログイン画面がレンダリングされること" do
       @controller.instance_variable_get(:@content).should == @controller.render(:action => :login)
     end
   end
@@ -40,7 +42,7 @@ describe "LoginController" do
       it "アップロード画面に遷移すること" do
         WebView.should_receive(:navigate).with("/app/Evacuee/upload")
         @controller.serve(@application, nil, SpecHelper.create_request("GET /Login/http_post_callback", "status" => "ok", "http_error" => "201", "rho_callback" => "1", "cookies" => "cookie"), {})
-        LoginController.class_variable_get(:@@cookie).should == "cookie"
+        LoginController.get_cookie.should == "cookie"
       end
     end
     context "認証ＮＧの場合" do
@@ -60,9 +62,9 @@ describe "LoginController" do
   describe "show_error" do
     before(:all) do
       LoginController.class_variable_set(:@@error_params, {'error_code' => '2', 'http_error' => '404'})
+      @controller.serve(@application, nil, SpecHelper.create_request("GET /Login/show_error"), {})
     end
     it "エラー画面がレンダリングされること" do
-      @controller.serve(@application, nil, SpecHelper.create_request("GET /Login/show_error"), {})
       @controller.instance_variable_get(:@content).should == @controller.render(:action => :error)
     end
   end

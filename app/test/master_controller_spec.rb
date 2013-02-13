@@ -54,9 +54,9 @@ describe "MasterController" do
   describe "show_error" do
     before(:all) do
       MasterController.class_variable_set(:@@error_params, {'error_code' => '2', 'http_error' => '404'})
+      @controller.serve(@application, nil, SpecHelper.create_request("GET /Master/show_error"), {})
     end
     it "エラー画面がレンダリングされること" do
-      @controller.serve(@application, nil, SpecHelper.create_request("GET /Master/show_error"), {})
       @controller.instance_variable_get(:@content).should == @controller.render(:action => :error)
     end
   end
