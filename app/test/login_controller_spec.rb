@@ -66,4 +66,14 @@ describe "LoginController" do
       @controller.instance_variable_get(:@content).should == @controller.render(:action => :error)
     end
   end
+  
+  describe "cookie" do
+    before(:all) do
+      LoginController.class_variable_set(:@@cookie, "cookie")
+    end
+    
+    it "@@cookieが返されること" do
+      LoginController.get_cookie.should == "cookie"
+    end
+  end
 end
