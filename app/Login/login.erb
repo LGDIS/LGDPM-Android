@@ -9,11 +9,11 @@
     <form method="POST" id="login-form" action="<%= url_for :action => :do_login %>">
       <div data-role="fieldcontain">
         <label for="login_id" class="itemLabel">ログインID</label>
-        <input type="text" id="login_id" name="login" class="itemValue" />
+        <input type="text" id="login_id" name="login" class="itemValue" maxlength="50" />
       </div>
       <div data-role="fieldcontain">
         <label for="password">パスワード</label>
-        <input type="password" id="password" name="password" class="itemValue" />
+        <input type="password" id="password" name="password" class="itemValue" maxlength="50" />
       </div>
       <button type="button" data-theme="a" data-mini="true" id="login-button">ログイン</button>
     </form>
