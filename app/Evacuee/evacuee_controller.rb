@@ -41,9 +41,13 @@ class EvacueeController < Rho::RhoController
   def do_search_again
     @all_num = Evacuee.count_by_condition(@@search_condition)
     per_page = Rho::RhoConfig.lgdpm_per_page.to_i
-    if @all_num <= @@page * per_page
-      @@page = @all_num / per_page -1
-      @@page += 1 unless @all_num % per_page == 0
+    if @all_num == 0
+      @@page = 0
+    else
+      if @all_num <= @@page * per_page
+        @@page = @all_num / per_page -1
+        @@page += 1 unless @all_num % per_page == 0
+      end
     end
     
     @evacuees = Evacuee.find_by_condition(@@page, @@search_condition)
@@ -141,8 +145,11 @@ class EvacueeController < Rho::RhoController
   # ==== Raise
   def delete
     @evacuee = Evacuee.find(@params['id'])
-    @evacuee.destroy if @evacuee
-    redirect :action => :do_search_again  
+    if @evacuee
+      @evacuee.destroy 
+      Alert.show_popup "削除が完了しました。"
+    end
+    redirect :action => :do_search_again
   end
 
   # 避難者データをアップロードします
