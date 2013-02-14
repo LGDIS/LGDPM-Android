@@ -65,7 +65,7 @@ class Evacuee
     qstring << "&evacuee[alternate_family_name]=#{Rho::RhoSupport.url_encode(alternate_family_name)}"
     qstring << "&evacuee[alternate_given_name]=#{Rho::RhoSupport.url_encode(alternate_given_name)}"
     qstring << "&evacuee[date_of_birth]="
-    unless blank?(date_of_birth)
+    unless date_of_birth.nil? or date_of_birth == ""
       qstring << "#{date_of_birth_year}-#{date_of_birth_month}-#{date_of_birth_day}"
     end
     qstring << "&evacuee[sex]=#{Rho::RhoSupport.url_encode(sex)}"
@@ -79,11 +79,11 @@ class Evacuee
     qstring << "&evacuee[refuge_status]=#{Rho::RhoSupport.url_encode(refuge_status)}"
     qstring << "&evacuee[refuge_reason]=#{Rho::RhoSupport.url_encode(refuge_reason)}"
     qstring << "&evacuee[shelter_entry_date]="
-    unless blank?(shelter_entry_date)
+    unless shelter_entry_date.nil? or shelter_entry_date == ""
       qstring << "#{shelter_entry_date_year}-#{shelter_entry_date_month}-#{shelter_entry_date_day}"
     end
     qstring << "&evacuee[shelter_leave_date]="
-    unless blank?(shelter_leave_date)
+    unless shelter_leave_date.nil? or shelter_leave_date == ""
       qstring << "#{shelter_leave_date_year}-#{shelter_leave_date_month}-#{shelter_leave_date_day}"
     end
     qstring << "&evacuee[next_place]=#{Rho::RhoSupport.url_encode(next_place)}"
