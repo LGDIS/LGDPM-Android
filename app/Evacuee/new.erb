@@ -227,7 +227,7 @@
   
       <fieldset class="ui-grid-a">
         <div class="ui-block-a"><a href="<%= Rho::RhoConfig.start_path %>" data-role="button" data-theme="d">キャンセル</a></div>
-        <div class="ui-block-b"><button type="button" data-theme="a" data-mini="true" id="save-button">保　存</button></div>
+        <div class="ui-block-b"><button type="button" data-theme="a" data-mini="true" onclick="save_data('<%= url_for :action => :create %>')">保　存</button></div>
       </fieldset>
     </form>
   </div>

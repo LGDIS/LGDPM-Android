@@ -1,68 +1,26 @@
 $("#evacuee-new").live("pageinit", function(event) {
-  $("#evacuee-form").submit(function(event) {
+  $("form").submit(function(event) {
     return false;
-  });
-  $("#save-button").click(function(event) {
-    if (validate_evacuee()) {
-      $.mobile.changePage($("#evacuee-form").attr("action"), {
-        type: "post",
-        data: $("#evacuee-form").serialize()
-      });
-    }
   });
   setup_address_select();
 });
 
 $("#evacuee-edit").live("pageinit", function(event) {
-  $("#evacuee-form").submit(function(event) {
+  $("form").submit(function(event) {
     return false;
-  });
-  $("#save-button").click(function(event) {
-    if (validate_evacuee()) {
-      $.mobile.changePage($("#evacuee-form").attr("action"), {
-        type: "post",
-        data: $("#evacuee-form").serialize()
-      });
-    }
   });
   setup_address_select();
 });
 
 $("#evacuee-search").live("pageinit", function(event) {
-  $("#evacuee-search-form").submit(function(event) {
+  $("form").submit(function(event) {
     return false;
-  });
-  $("#search-button").click(function(event) {
-    var errors = new Array();
-    if (validate_date($("#evacuee-date_of_birth_year_from").val(), $("#evacuee-date_of_birth_month_from").val(), $("#evacuee-date_of_birth_day_from").val()) == false) {
-      errors.push("開始生年月日が不正です。")
-    }
-    if (validate_date($("#evacuee-date_of_birth_year_to").val(), $("#evacuee-date_of_birth_month_to").val(), $("#evacuee-date_of_birth_day_to").val()) == false) {
-      errors.push("終了生年月日が不正です。")
-    }
-    if (errors.length > 0) {
-      alert(errors.join("\n"));
-      return false;
-    }
-    
-    $.mobile.changePage($("#evacuee-search-form").attr("action"), {
-      type: "post",
-      data: $("#evacuee-search-form").serialize()
-    });
   });
 });
 
 $("#login").live("pageinit", function(event) {
-  $("#login-form").submit(function(event) {
+  $("form").submit(function(event) {
     return false;
-  });
-  $("#login-button").click(function(event) {
-    $("#error_message").empty();
-    $("#error_message").append("サーバにログインしています...");
-    if (validate_login()) {
-      $("#login-button").attr("disabled","disabled");
-      $.post($("#login-form").attr("action"), $("#login-form").serialize());
-    }
   });
 });
 
@@ -111,7 +69,7 @@ function setup_address_select() {
   });
 }
 
-function validate_evacuee() {
+function validate_save() {
   var errors = new Array();
   if ($("#evacuee-family_name").val() == "") {
     errors.push("姓が入力されていません。")
@@ -171,6 +129,22 @@ function validate_date(year, month, day) {
   }
   return false;
 }
+
+function validate_search() {
+  var errors = new Array();
+  if (validate_date($("#evacuee-date_of_birth_year_from").val(), $("#evacuee-date_of_birth_month_from").val(), $("#evacuee-date_of_birth_day_from").val()) == false) {
+    errors.push("開始生年月日が不正です。")
+  }
+  if (validate_date($("#evacuee-date_of_birth_year_to").val(), $("#evacuee-date_of_birth_month_to").val(), $("#evacuee-date_of_birth_day_to").val()) == false) {
+    errors.push("終了生年月日が不正です。")
+  }
+  if (errors.length > 0) {
+    alert(errors.join("\n"));
+    return false;
+  }
+  return true;
+}
+
 function validate_login() {
   var errors = new Array();
   if ($("#login_id").val() == "") {
@@ -184,6 +158,12 @@ function validate_login() {
     return false;
   }
   return true;
+}
+
+function save_data(url) {
+  if (validate_save()) {
+    $.mobile.changePage(url, {type: "post", data: $("#evacuee-form").serialize()});
+  }
 }
 
 function delete_data(url) {
@@ -200,4 +180,19 @@ function confirm_download(url) {
 
 function cancel_upload(url) {
   $.post(url);
+}
+
+function do_search(url) {
+  if (validate_search()) {
+    $.mobile.changePage(url, {type: "post", data: $("#evacuee-search-form").serialize()});
+  }
+}
+
+function do_login(url) {
+  $("#error_message").empty();
+  $("#error_message").append("サーバにログインしています...");
+  if (validate_login()) {
+    $("#login-button").attr("disabled","disabled");
+    $.post(url, $("#login-form").serialize());
+  }
 }

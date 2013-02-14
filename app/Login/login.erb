@@ -15,7 +15,7 @@
         <label for="password">パスワード</label>
         <input type="password" id="password" name="password" class="itemValue" maxlength="50" />
       </div>
-      <button type="button" data-theme="a" data-mini="true" id="login-button">ログイン</button>
+      <button type="button" data-theme="a" data-mini="true" onclick="do_login('<%= url_for :action => :do_login %>')">ログイン</button>
     </form>
   </div>
 </div>
