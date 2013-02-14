@@ -80,7 +80,7 @@ class EvacueeController < Rho::RhoController
   # ==== Raise
   def new
     if Evacuee.count_by_condition() >= Rho::RhoConfig.lgdpm_max_evacuees.to_i
-      Alert.show_popup "最大登録件数に達しました。サーバ送信を行なってください。"
+      Alert.show_popup "登録が完了しました。登録件数が最大件数に達しました。"
       redirect Rho::RhoConfig.start_path
     end
     
