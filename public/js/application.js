@@ -30,10 +30,10 @@ $("#evacuee-edit").live("pageinit", function(event) {
 
 $("#evacuee-search").live("pageinit", function(event) {
   $("#evacuee-search-form").submit(function(event) {
-	return false;
+    return false;
   });
   $("#search-button").click(function(event) {
-	var errors = new Array();
+    var errors = new Array();
     if (validate_date($("#evacuee-date_of_birth_year_from").val(), $("#evacuee-date_of_birth_month_from").val(), $("#evacuee-date_of_birth_day_from").val()) == false) {
       errors.push("開始生年月日が不正です。")
     }
@@ -74,7 +74,7 @@ function authentication_error() {
 
 function setup_address_select() {
   $("#evacuee-home_state").change(function(event) {
-	var state_cd = $(this).val();
+    var state_cd = $(this).val();
     if (state_cd == "") {
       var city_select = $("#evacuee-home_city");
       city_select.empty();
@@ -144,19 +144,19 @@ function validate_evacuee() {
     errors.push("退所年月日が不正です。")
   }
   if (errors.length > 0) {
-	  alert(errors.join("\n"));
-	  return false;
+    alert(errors.join("\n"));
+    return false;
   }
   
-  return confirm("保存ししてよろしいですか？");
+  return confirm("保存します。よろしいですか？");
 }
 
 function validate_date(year, month, day) {
   if (year == "" && month == "" && day == "") {
-	return true;
+    return true;
   }
   if (year == "" || month == "" || day == "") {
-	return false;
+    return false;
   }
   var iYear = parseInt(year, 10);
   var iMonth = parseInt(month, 10) - 1;
@@ -164,10 +164,10 @@ function validate_date(year, month, day) {
   
   var d = new Date(iYear, iMonth, iDay);
   if (isNaN(d)) {
-	return false
+    return false
   }
   if (d.getFullYear() == iYear && d.getMonth() == iMonth && d.getDate() == iDay) {
-	return true;
+    return true;
   }
   return false;
 }
@@ -180,8 +180,8 @@ function validate_login() {
     errors.push("パスワードが入力されていません。")
   }
   if (errors.length > 0) {
-	  alert(errors.join("\n"));
-	  return false;
+    alert(errors.join("\n"));
+    return false;
   }
   return true;
 }
