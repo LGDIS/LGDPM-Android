@@ -277,7 +277,9 @@ class EvacueeController < Rho::RhoController
     unless suffix.empty? or suffix.start_with?("_") 
       suffix = "_" + suffix
     end
-    unless blank?(params["#{name}_year#{suffix}"]) or blank?(params["#{name}_month#{suffix}"]) or blank?(params["#{name}_day#{suffix}"])
+    if blank?(params["#{name}_year#{suffix}"]) or blank?(params["#{name}_month#{suffix}"]) or blank?(params["#{name}_day#{suffix}"])
+      params["#{name}#{suffix}"] = ""
+    else
       params["#{name}#{suffix}"] = params["#{name}_year#{suffix}"] + params["#{name}_month#{suffix}"] + params["#{name}_day#{suffix}"]
     end
   end
