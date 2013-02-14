@@ -127,7 +127,10 @@ class EvacueeController < Rho::RhoController
     concat_date(evacuee, 'shelter_entry_date')
     concat_date(evacuee, 'shelter_leave_date')
     set_in_city_flag(evacuee)
-    @evacuee.update_attributes(evacuee) if @evacuee
+    if @evacuee
+      @evacuee.update_attributes(evacuee)
+      Alert.show_popup "登録が完了しました。"
+    end
     redirect :action => :do_search_again
   end
 
