@@ -190,7 +190,7 @@ function do_search(url) {
 
 function do_login(url) {
   $("#error_message").empty();
-  $("#error_message").append("サーバにログインしています...");
+  $("#error_message").append("ログイン認証しています...");
   if (validate_login()) {
     $("#login-button").attr("disabled","disabled");
     $.post(url, $("#login-form").serialize());
