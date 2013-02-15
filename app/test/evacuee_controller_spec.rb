@@ -86,7 +86,7 @@ describe "EvacueeController" do
         Rho::RhoConfig.lgdpm_max_evacuees = 5
       end
       it "メニュー画面にリダイレクトすること" do
-        Alert.should_receive(:show_popup).with("最大登録件数に達しました。サーバ送信を行なってください。")
+        Alert.should_receive(:show_popup).with("最大登録件数に達しています。サーバ送信を行ってください。")
         response = {"headers" => {}}
         @controller.serve(@application, nil, SpecHelper.create_request("GET /Evacuee/new"), response)
         response["headers"]["Location"].should == Rho::RhoConfig.start_path
@@ -122,6 +122,7 @@ describe "EvacueeController" do
       Evacuee.should_receive(:new).and_return(@evacuee)
     end
     it "登録画面にリダイレクトされること" do
+      Alert.should_receive(:show_popup).with("登録が完了しました。")
       @evacuee.should_receive(:save)
       response = {"headers" => {}}
       @controller.serve(@application, nil, SpecHelper.create_request("POST /Evacuee/create", 
@@ -136,6 +137,7 @@ describe "EvacueeController" do
       Evacuee.should_receive(:find).and_return(@evacuee)
     end
     it "再検索にリダイレクトされること" do
+      Alert.should_receive(:show_popup).with("登録が完了しました。")
       @evacuee.should_receive(:update_attributes)
       response = {"headers" => {}}
       @controller.serve(@application, nil, SpecHelper.create_request("POST /Evacuee/update", "id" => "1",
@@ -150,6 +152,7 @@ describe "EvacueeController" do
       Evacuee.should_receive(:find).and_return(@evacuee)
     end
     it "再検索にリダイレクトされること" do
+      Alert.should_receive(:show_popup).with("削除が完了しました。")
       @evacuee.should_receive(:destroy)
       response = {"headers" => {}}
       @controller.serve(@application, nil, SpecHelper.create_request("POST /Evacuee/delete", "id" => "1"), response)
@@ -198,6 +201,12 @@ describe "EvacueeController" do
   end
 
   describe "http_post_callback" do
+    before(:all) do 
+      @lgdpm_http_server_authentication = Rho::RhoConfig.lgdpm_http_server_authentication
+      @lgdpm_upload_url = Rho::RhoConfig.lgdpm_upload_url
+      Rho::RhoConfig.lgdpm_http_server_authentication = ""
+      Rho::RhoConfig.lgdpm_upload_url = "uploadURL"
+    end
     context "正常の場合" do
       context "残りが無い場合" do
         before(:all) do
@@ -245,6 +254,10 @@ describe "EvacueeController" do
           WebView.should_receive(:navigate).with(Rho::RhoConfig.start_path)
           @controller.serve(@application, nil, SpecHelper.create_request("GET /Evacuee/http_post_callback", "status" => "ok", "rho_callback" => "1"), {})
         end
+      end
+      after(:all) do
+        Rho::RhoConfig.lgdpm_http_server_authentication = @lgdpm_http_server_authentication
+        Rho::RhoConfig.lgdpm_upload_url = @lgdpm_upload_url
       end
     end
     context "エラーの場合" do
