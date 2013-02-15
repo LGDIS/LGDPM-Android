@@ -80,12 +80,12 @@ class EvacueeController < Rho::RhoController
   # ==== Raise
   def new
     if Evacuee.count_by_condition() >= Rho::RhoConfig.lgdpm_max_evacuees.to_i
-      Alert.show_popup "登録が完了しました。登録件数が最大件数に達しました。"
+      Alert.show_popup "最大登録件数に達しています。サーバ送信を行ってください。"
       redirect Rho::RhoConfig.start_path
+    else
+      @evacuee = Evacuee.new(default_values())
+      render :action => :new, :back => Rho::RhoConfig.start_path
     end
-    
-    @evacuee = Evacuee.new(default_values())
-    render :action => :new, :back => Rho::RhoConfig.start_path
   end
 
   # 更新画面表示
@@ -116,7 +116,14 @@ class EvacueeController < Rho::RhoController
     @evacuee = Evacuee.new(evacuee)
     @evacuee.save
     @@current_shelter = @evacuee.shelter_name
-    redirect :action => :new
+
+    if Evacuee.count_by_condition() >= Rho::RhoConfig.lgdpm_max_evacuees.to_i
+      Alert.show_popup "登録が完了しました。登録件数が最大件数に達しました。"
+      redirect Rho::RhoConfig.start_path
+    else
+      Alert.show_popup "登録が完了しました。"
+      redirect :action => :new
+    end
   end
 
   # 更新実行
