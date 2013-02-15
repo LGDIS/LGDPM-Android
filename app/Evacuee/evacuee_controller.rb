@@ -113,6 +113,8 @@ class EvacueeController < Rho::RhoController
     concat_date(evacuee, 'shelter_entry_date')
     concat_date(evacuee, 'shelter_leave_date')
     set_in_city_flag(evacuee)
+    set_injury_flag(evacuee)
+    set_allergy_flag(evacuee)
     @evacuee = Evacuee.new(evacuee)
     @evacuee.save
     @@current_shelter = @evacuee.shelter_name
@@ -138,6 +140,8 @@ class EvacueeController < Rho::RhoController
     concat_date(evacuee, 'shelter_entry_date')
     concat_date(evacuee, 'shelter_leave_date')
     set_in_city_flag(evacuee)
+    set_injury_flag(evacuee)
+    set_allergy_flag(evacuee)
     if @evacuee
       @evacuee.update_attributes(evacuee)
       Alert.show_popup "登録が完了しました。"
@@ -304,6 +308,34 @@ class EvacueeController < Rho::RhoController
       else
         params["in_city_flag"] = Rho::RhoConfig.lgdpm_in_city_flag_out
       end
+    end
+  end
+
+  # 負傷フラグ設定処理
+  # 負傷内容が未入力（空白だけの入力を含む）の場合、負傷フラグを無に、入力がある場合、有に設定します。 
+  # ==== Args
+  # _params_ :: パラメータ
+  # ==== Return
+  # ==== Raise
+  def set_injury_flag(params)
+    if params["injury_condition"].nil? or params["injury_condition"] !~ /\S/
+      params["injury_flag"] = Rho::RhoConfig.lgdpm_injury_flag_off
+    else
+      params["injury_flag"] = Rho::RhoConfig.lgdpm_injury_flag_on
+    end
+  end
+
+  # アレルギーフラグ設定処理
+  # アレルギー物質が未入力（空白だけの入力を含む）の場合、アレルギーフラグを無に、入力がある場合、有に設定します。 
+  # ==== Args
+  # _params_ :: パラメータ
+  # ==== Return
+  # ==== Raise
+  def set_allergy_flag(params)
+    if params["allergy_cause"].nil? or params["allergy_cause"] !~ /\S/
+      params["allergy_flag"] = Rho::RhoConfig.lgdpm_allergy_flag_off
+    else
+      params["allergy_flag"] = Rho::RhoConfig.lgdpm_allergy_flag_on
     end
   end
 

@@ -13,22 +13,22 @@
 
       <div data-role="fieldcontain">
         <label for="evacuee-family_name" class="fieldLabel">姓</label>
-        <input type="text" id="evacuee-family_name" name="evacuee[family_name]" value="<%= @evacuee.family_name %>" maxlength="40"/>
+        <input type="text" id="evacuee-family_name" name="evacuee[family_name]" value="<%= @evacuee.family_name %>" maxlength="500"/>
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-given_name" class="fieldLabel">名</label>
-        <input type="text" id="evacuee-given_name" name="evacuee[given_name]" value="<%= @evacuee.given_name %>" maxlength="40" />
+        <input type="text" id="evacuee-given_name" name="evacuee[given_name]" value="<%= @evacuee.given_name %>" maxlength="500" />
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-alternate_family_name" class="fieldLabel">姓（カナ）</label>
-        <input type="text" id="evacuee-alternate_family_name" name="evacuee[alternate_family_name]" value="<%= @evacuee.alternate_family_name %>" maxlength="40" />
+        <input type="text" id="evacuee-alternate_family_name" name="evacuee[alternate_family_name]" value="<%= @evacuee.alternate_family_name %>" maxlength="500" />
       </div>
   
       <div data-role="fieldcontain">
         <label for="evacuee-alternate_given_name" class="fieldLabel">名（カナ）</label>
-        <input type="text" id="evacuee-alternate_given_name" name="evacuee[alternate_given_name]" value="<%= @evacuee.alternate_given_name %>" maxlength="40" />
+        <input type="text" id="evacuee-alternate_given_name" name="evacuee[alternate_given_name]" value="<%= @evacuee.alternate_given_name %>" maxlength="500" />
       </div>
   
       <div data-role="fieldcontain">
@@ -58,7 +58,7 @@
         
       <div data-role="fieldcontain">
         <label for="evacuee-home_postal_code" class="fieldLabel">郵便番号</label>
-        <input type="text" id="evacuee-home_postal_code" name="evacuee[home_postal_code]" value="<%= @evacuee.home_postal_code %>" maxlength="7" />
+        <input type="text" id="evacuee-home_postal_code" name="evacuee[home_postal_code]" value="<%= @evacuee.home_postal_code %>" maxlength="500" />
       </div>
   
       <div data-role="fieldcontain">
@@ -81,7 +81,7 @@
       </div>
       <div data-role="fieldcontain">
         <label for="evacuee-house_number" class="fieldLabel">番地</label>
-        <input type="text" id="evacuee-house_number" name="evacuee[house_number]" value="<%= @evacuee.house_number %>" maxlength="50" />
+        <input type="text" id="evacuee-house_number" name="evacuee[house_number]" value="<%= @evacuee.house_number %>" maxlength="500" />
       </div>
 
       <div data-role="fieldcontain">
@@ -105,6 +105,7 @@
         <fieldset data-role="controlgroup"> 
           <legend>家族</legend> 
           <input type="checkbox" id="evacuee-famiry_well" name="evacuee[famiry_well]" class="custom" data-theme="d" value="true" <%= checked("true", @evacuee.famiry_well) %> />
+            <input type="hidden" name="evacuee[famiry_well]" value="0" />
           <label for="evacuee-famiry_well">家族も無事</label>
         </fieldset>
       </div>
@@ -151,26 +152,12 @@
   
       <div data-role="fieldcontain">
         <label for="evacuee-next_place_phone" class="fieldLabel">退所先電話番号</label>
-        <input type="text" id="evacuee-next_place_phone" name="evacuee[next_place_phone]" value="<%= @evacuee.next_place_phone %>" maxlength="13" />
-      </div>
-  
-      <div data-role="fieldcontain"> 
-        <fieldset data-role="controlgroup" data-type="horizontal"> 
-          <legend>負傷</legend> 
-          <%= master_radios "injury_flag", :data_theme => "d", :value => @evacuee.injury_flag %>
-        </fieldset> 
+        <input type="text" id="evacuee-next_place_phone" name="evacuee[next_place_phone]" value="<%= @evacuee.next_place_phone %>" maxlength="20" />
       </div>
 
       <div data-role="fieldcontain">
         <label for="evacuee-injury_condition" class="fieldLabel">負傷内容</label>
         <textarea id="evacuee-injury_condition" name="evacuee[injury_condition]" maxlength="4000" ><%= @evacuee.injury_condition %></textarea>
-      </div>
-  
-      <div data-role="fieldcontain"> 
-        <fieldset data-role="controlgroup" data-type="horizontal"> 
-          <legend>アレルギー</legend> 
-          <%= master_radios "allergy_flag", :data_theme => "d", :value => @evacuee.allergy_flag %>
-        </fieldset> 
       </div>
   
       <div data-role="fieldcontain">
