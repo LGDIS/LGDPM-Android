@@ -101,6 +101,7 @@ class Evacuee
     qstring << "&evacuee[elderly_dementia]=#{Rho::RhoSupport.url_encode(elderly_dementia)}"
     qstring << "&evacuee[rehabilitation_certificate]=#{Rho::RhoSupport.url_encode(rehabilitation_certificate)}"
     qstring << "&evacuee[physical_disability_certificate]=#{Rho::RhoSupport.url_encode(physical_disability_certificate)}"
+    qstring << "&evacuee[family_well]=#{family_well}"
     qstring << "&evacuee[note]=#{Rho::RhoSupport.url_encode(note)}"
   end
 end

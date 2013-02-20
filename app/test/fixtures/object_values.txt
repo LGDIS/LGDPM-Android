@@ -40,6 +40,7 @@ Evacuee|bedridden_elderly|1|1|
 Evacuee|elderly_dementia|1|0|
 Evacuee|rehabilitation_certificate|1|01|
 Evacuee|physical_disability_certificate|1|1|
+Evacuee|family_well|1|1|
 Evacuee|note|1|備考|
 Evacuee|family_name|2|あい|
 Evacuee|alternate_family_name|2|アイ|

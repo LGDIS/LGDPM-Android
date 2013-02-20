@@ -233,6 +233,7 @@ commit_kind=save
 &evacuee[elderly_dementia]=0
 &evacuee[rehabilitation_certificate]=01
 &evacuee[physical_disability_certificate]=1
+&evacuee[family_well]=1
 &evacuee[note]=%E5%82%99%E8%80%83
 EOS
     end
