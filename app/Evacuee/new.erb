@@ -19,12 +19,12 @@
       </div>
 
       <div data-role="fieldcontain">
-        <label for="evacuee-alternate_family_name" class="fieldLabel">姓（カナ）</label>
+        <label for="evacuee-alternate_family_name" class="fieldLabel">姓（かな）</label>
         <input type="text" id="evacuee-alternate_family_name" name="evacuee[alternate_family_name]" maxlength="500" />
       </div>
 
       <div data-role="fieldcontain">
-        <label for="evacuee-alternate_given_name" class="fieldLabel">名（カナ）</label>
+        <label for="evacuee-alternate_given_name" class="fieldLabel">名（かな）</label>
         <input type="text" id="evacuee-alternate_given_name" name="evacuee[alternate_given_name]" maxlength="500" />
       </div>
 
@@ -39,7 +39,7 @@
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
         </fieldset>
       </div>
-          
+
       <div data-role="fieldcontain"> 
         <fieldset data-role="controlgroup" data-type="horizontal"> 
           <legend>性別</legend> 
@@ -58,18 +58,21 @@
           <%= state_options(@evacuee.home_state) %>
         </select> 
       </div>
+
       <div data-role="fieldcontain">
         <label for="evacuee-home_city" class="select">市区町村</label>
         <select name="evacuee[home_city]" id="evacuee-home_city" data-theme="d">
           <%= city_options(@evacuee.home_state, @evacuee.home_city) %>
         </select>
       </div>
+
       <div data-role="fieldcontain">
         <label for="evacuee-home_street" class="select">町名</label>
         <select name="evacuee[home_street]" id="evacuee-home_street" data-theme="d"> 
           <%= street_options(@evacuee.home_state, @evacuee.home_city) %>
         </select> 
       </div>
+
       <div data-role="fieldcontain">
         <label for="evacuee-house_number" class="fieldLabel">番地</label>
         <input type="text" id="evacuee-house_number" name="evacuee[house_number]" maxlength="500" />
@@ -79,7 +82,7 @@
         <label for="evacuee-shelter_name" class="select">避難所</label>
         <%= select_shelter_tag :name => "evacuee[shelter_name]", :id => "evacuee-shelter_name", :data_theme => "d", :value => @evacuee.shelter_name %>
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-refuge_status" class="fieldLabel">避難状況</label>
         <select name="evacuee[refuge_status]" id="evacuee-refuge_status" data-theme="d"> 
@@ -100,7 +103,7 @@
           <input type="hidden" name="evacuee[family_well]" value="0" />
         </fieldset>
       </div>
-  
+
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" class="ui-grid-a">
           <legend>入所年月日</legend> 
@@ -112,7 +115,7 @@
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
         </fieldset>
       </div>
-  
+
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" class="ui-grid-a">
           <legend>退所年月日</legend>
@@ -124,11 +127,12 @@
           <div class="ui-block-b"><h3 style="width:40px; text-align:right;">日</h3></div>
         </fieldset>
       </div>
+
       <div data-role="fieldcontain">
         <label for="evacuee-next_place" class="fieldLabel">退所先</label>
         <input type="text" id="evacuee-next_place" name="evacuee[next_place]" maxlength="100" />
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-next_place_phone" class="fieldLabel">退所先電話番号</label>
         <input type="text" id="evacuee-next_place_phone" name="evacuee[next_place_phone]" maxlength="20" />
@@ -143,56 +147,56 @@
         <label for="evacuee-allergy_cause" class="fieldLabel">アレルギー物質</label>
         <textarea id="evacuee-allergy_cause" name="evacuee[allergy_cause]" maxlength="4000" ></textarea>
       </div>
-  
+
       <div data-role="fieldcontain"> 
         <label for="evacuee-pregnancy" class="select">妊婦</label>
         <select name="evacuee[pregnancy]" id="evacuee-pregnancy" data-theme="d"> 
           <%= master_options("pregnancy", :value => @evacuee.pregnancy) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain"> 
         <label for="evacuee-baby" class="select">乳幼児</label>
         <select name="evacuee[baby]" id="evacuee-baby" data-theme="d"> 
           <%= master_options("baby", :value => @evacuee.baby) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-upper_care_level_three" class="select">要介護度３以上</label>
         <select name="evacuee[upper_care_level_three]" id="evacuee-upper_care_level_three" data-theme="d"> 
           <%= master_options("upper_care_level_three", :value => @evacuee.upper_care_level_three) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-elderly_alone" class="select">一人暮らし高齢者</label>
         <select name="evacuee[elderly_alone]" id="evacuee-elderly_alone" data-theme="d"> 
           <%= master_options("elderly_alone", :value => @evacuee.elderly_alone) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-elderly_couple" class="select">高齢者世帯</label>
         <select name="evacuee[elderly_couple]" id="evacuee-elderly_couple" data-theme="d"> 
           <%= master_options("elderly_couple", :value => @evacuee.elderly_couple) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-bedridden_elderly" class="select">寝たきり高齢者</label>
         <select name="evacuee[bedridden_elderly]" id="evacuee-bedridden_elderly" data-theme="d"> 
           <%= master_options("bedridden_elderly", :value => @evacuee.bedridden_elderly) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-elderly_dementia" class="select">認知症高齢者</label>
         <select name="evacuee[elderly_dementia]" id="evacuee-elderly_dementia" data-theme="d"> 
           <%= master_options("elderly_dementia", :value => @evacuee.elderly_dementia) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-rehabilitation_certificate" class="select">療育手帳所持者</label>
         <select name="evacuee[rehabilitation_certificate]" id="evacuee-rehabilitation_certificate" data-theme="d"> 
@@ -206,12 +210,12 @@
           <%= master_options("physical_disability_certificate", :value => @evacuee.physical_disability_certificate) %>
         </select> 
       </div>
-  
+
       <div data-role="fieldcontain">
         <label for="evacuee-note" class="fieldLabel">備考</label>
         <textarea id="evacuee-note" name="evacuee[note]" maxlength="4000" ></textarea>
       </div>
-  
+
       <fieldset class="ui-grid-a">
         <div class="ui-block-a"><a href="<%= Rho::RhoConfig.start_path %>" data-role="button" data-theme="d">キャンセル</a></div>
         <div class="ui-block-b"><button type="button" data-theme="a" data-mini="true" onclick="save_data('<%= url_for :action => :create %>')">保　存</button></div>
