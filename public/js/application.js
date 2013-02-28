@@ -181,6 +181,11 @@ function save_data(url) {
   }
 }
 
+// キャンセルボタン押下時の処理
+function cancel_data(url) {
+  $.mobile.changePage(url, {type: "get", reverse: true});
+}
+
 // 削除ボタン押下時の処理
 function delete_data(url) {
   if (confirm("削除ししてよろしいですか？")) {

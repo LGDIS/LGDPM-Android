@@ -238,7 +238,7 @@
       </div>
 
       <fieldset class="ui-grid-b">
-        <div class="ui-block-a"><a href="#" data-rel="back" data-role="button" data-theme="d" data-direction="reverse">キャンセル</a></div>
+        <div class="ui-block-a"><button type="button" data-theme="d" data-mini="true" onclick="cancel_data('<%= url_for :action => :do_search_again %>')">キャンセル</button></div>
         <div class="ui-block-b"><button type="button" data-theme="a" data-mini="true" onclick="save_data('<%= url_for :action => :update %>')">保　存</button></div>
         <div class="ui-block-c"><button type="button" data-theme="b" data-mini="true" onclick="delete_data('<%= url_for url_for :action => :delete, :id => @evacuee.object %>')">削　除</button></div>
       </fieldset>
