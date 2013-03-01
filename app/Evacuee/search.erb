@@ -9,12 +9,12 @@
     <form method="POST" action="<%= url_for :action => :do_search %>" id="evacuee-search-form">
       <div data-role="fieldcontain">
         <label for="evacuee-alternate_family_name" class="fieldLabel">姓（かな）</label>
-        <input type="text" id="evacuee-alternate_family_name" name="evacuee[alternate_family_name]" maxlength="40" />
+        <input type="text" id="evacuee-alternate_family_name" name="evacuee[alternate_family_name]" maxlength="500" />
       </div>
 
       <div data-role="fieldcontain">
         <label for="evacuee-alternate_given_name" class="fieldLabel">名（かな）</label>
-        <input type="text" id="evacuee-alternate_given_name" name="evacuee[alternate_given_name]" maxlength="40" />
+        <input type="text" id="evacuee-alternate_given_name" name="evacuee[alternate_given_name]" maxlength="500" />
       </div>
 
       <div data-role="fieldcontain">
