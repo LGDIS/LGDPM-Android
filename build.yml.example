@@ -12,19 +12,19 @@ iphone:
   provisionprofile: 
   codesignidentity: 
   entitlements: 
-  BundleIdentifier: "com.rhomobile.personfinder"
-  BundleURLScheme: "personfinder"
+  BundleIdentifier: "com.rhomobile.lgdpm"
+  BundleURLScheme: "lgdpm"
 wp:
   productid: "106a0d51-061f-0130-688d-005056c00008"
 symbian:
   uid: "0xeb757204"
 android:
   version: "4.0.3"
-  emulator: "Test2"
+  emulator: "Test"
   production:
-    certificate: "D:/Rhodes/keystore"
-    password: "pfpassword"
-    alias: "personfinder.keystore"
+    certificate: "C:/Rhodes/keystore"
+    password: "password"
+    alias: "LGDPM.keystore"
 extensions:
   - json
   - another-extension
