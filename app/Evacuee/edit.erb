@@ -233,6 +233,16 @@
       </div>
 
       <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>外部に公開</legend>
+          <input type="radio" name="evacuee[public_flag]" id="evacuee-public_flag-1" value="1" data-theme="d" <%= checked("1", @evacuee.public_flag) %> /> 
+          <label for="evacuee-public_flag-1">はい</label> 
+          <input type="radio" name="evacuee[public_flag]" id="evacuee-public_flag-0" value="0" data-theme="d" <%= checked("0", @evacuee.public_flag) %> /> 
+          <label for="evacuee-public_flag-0">いいえ</label> 
+        </fieldset>
+      </div>
+
+      <div data-role="fieldcontain">
         <label for="evacuee-note" class="fieldLabel">備考</label>
         <textarea id="evacuee-note" name="evacuee[note]" maxlength="4000" ><%= @evacuee.note %></textarea>
       </div>

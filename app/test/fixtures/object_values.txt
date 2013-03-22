@@ -14,7 +14,7 @@ Evacuee|home_state|1|01|
 Evacuee|home_city|1|101|
 Evacuee|home_street|1|0001|
 Evacuee|house_number|1|1|
-Evacuee|shelter_name|1|11|
+Evacuee|shelter_name|1|04202I00000000000011|
 Evacuee|refuge_status|1|1|
 Evacuee|refuge_reason|1|避難理由|
 Evacuee|shelter_entry_date|1|20110203|
@@ -41,6 +41,7 @@ Evacuee|elderly_dementia|1|0|
 Evacuee|rehabilitation_certificate|1|01|
 Evacuee|physical_disability_certificate|1|1|
 Evacuee|family_well|1|1|
+Evacuee|public_flag|1|0|
 Evacuee|note|1|備考|
 Evacuee|family_name|2|あい|
 Evacuee|alternate_family_name|2|アイ|
@@ -57,7 +58,7 @@ Evacuee|home_state|2|04|
 Evacuee|home_city|2|202|
 Evacuee|home_street|2|0002|
 Evacuee|house_number|2|2|
-Evacuee|shelter_name|2|12|
+Evacuee|shelter_name|2|04202I00000000000012|
 Evacuee|refuge_status|2|2|
 Evacuee|refuge_reason|2||
 Evacuee|shelter_entry_date_year|2||
@@ -79,6 +80,7 @@ Evacuee|bedridden_elderly|2|1|
 Evacuee|elderly_dementia|2|0|
 Evacuee|rehabilitation_certificate|2|02|
 Evacuee|physical_disability_certificate|2|2|
+Evacuee|public_flag|2|1|
 Evacuee|family_name|3|いい|
 Evacuee|alternate_family_name|3|イイ|
 Evacuee|given_name|3|きき|
@@ -94,7 +96,7 @@ Evacuee|home_state|3|04|
 Evacuee|home_city|3|202|
 Evacuee|home_street|3|0003|
 Evacuee|house_number|3|3|
-Evacuee|shelter_name|3|13|
+Evacuee|shelter_name|3|04202I00000000000013|
 Evacuee|refuge_status|3||
 Evacuee|refuge_reason|3||
 Evacuee|shelter_entry_date_year|3||
@@ -116,6 +118,7 @@ Evacuee|bedridden_elderly|3|0|
 Evacuee|elderly_dementia|3|0|
 Evacuee|rehabilitation_certificate|3|03|
 Evacuee|physical_disability_certificate|3|0|
+Evacuee|public_flag|3|0|
 Evacuee|family_name|4|うう|
 Evacuee|alternate_family_name|4|ウウ|
 Evacuee|given_name|4|くく|
@@ -131,7 +134,7 @@ Evacuee|home_state|4||
 Evacuee|home_city|4||
 Evacuee|home_street|4||
 Evacuee|house_number|4||
-Evacuee|shelter_name|4|14|
+Evacuee|shelter_name|4|04202I00000000000014|
 Evacuee|refuge_status|4||
 Evacuee|refuge_reason|4||
 Evacuee|shelter_entry_date_year|4||
@@ -153,6 +156,7 @@ Evacuee|bedridden_elderly|4|0|
 Evacuee|elderly_dementia|4|1|
 Evacuee|rehabilitation_certificate|4|04|
 Evacuee|physical_disability_certificate|4|1|
+Evacuee|public_flag|4|1|
 Evacuee|family_name|5|ええ|
 Evacuee|alternate_family_name|5|エエ|
 Evacuee|given_name|5|けけ|
@@ -168,7 +172,7 @@ Evacuee|home_state|5||
 Evacuee|home_city|5||
 Evacuee|home_street|5||
 Evacuee|house_number|5||
-Evacuee|shelter_name|5|15|
+Evacuee|shelter_name|5|04202I00000000000015|
 Evacuee|refuge_status|5||
 Evacuee|refuge_reason|5||
 Evacuee|shelter_entry_date_year|5||
@@ -190,3 +194,4 @@ Evacuee|bedridden_elderly|5|0|
 Evacuee|elderly_dementia|5|1|
 Evacuee|rehabilitation_certificate|5|05|
 Evacuee|physical_disability_certificate|5|2|
+Evacuee|public_flag|5|0|

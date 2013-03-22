@@ -65,7 +65,7 @@ describe "Evacuee" do
 
     describe "shelter_name" do
       it "検索されること" do
-        evacuees = Evacuee.find_by_condition(0, {"shelter_name" => "11"})
+        evacuees = Evacuee.find_by_condition(0, {"shelter_name" => "04202I00000000000011"})
         evacuees.size.should == 1
         evacuees[0].object.should == "1"
       end
@@ -213,7 +213,7 @@ commit_kind=save
 &evacuee[home_city]=%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA
 &evacuee[home_street]=%E6%97%AD%E3%82%B1%E4%B8%98
 &evacuee[house_number]=1
-&evacuee[shelter_name]=11
+&evacuee[shelter_name]=04202I00000000000011
 &evacuee[refuge_status]=1
 &evacuee[refuge_reason]=%E9%81%BF%E9%9B%A3%E7%90%86%E7%94%B1
 &evacuee[shelter_entry_date]=2011-02-03
@@ -234,6 +234,7 @@ commit_kind=save
 &evacuee[rehabilitation_certificate]=01
 &evacuee[physical_disability_certificate]=1
 &evacuee[family_well]=1
+&evacuee[public_flag]=0
 &evacuee[note]=%E5%82%99%E8%80%83
 EOS
     end

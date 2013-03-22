@@ -119,3 +119,4 @@ lgdpm_default_bedridden_elderly=0
 lgdpm_default_elderly_dementia=0
 lgdpm_default_rehabilitation_certificate=99
 lgdpm_default_physical_disability_certificate=0
+lgdpm_default_public_flag=1

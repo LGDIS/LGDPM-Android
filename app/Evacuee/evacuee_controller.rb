@@ -286,6 +286,7 @@ class EvacueeController < Rho::RhoController
     values['elderly_dementia'] = Rho::RhoConfig.lgdpm_default_elderly_dementia
     values['rehabilitation_certificate'] = Rho::RhoConfig.lgdpm_default_rehabilitation_certificate
     values['physical_disability_certificate'] = Rho::RhoConfig.lgdpm_default_physical_disability_certificate
+    values['public_flag'] = Rho::RhoConfig.lgdpm_default_public_flag
     @@current_shelter ||= Rho::RhoConfig.lgdpm_default_shelter_name
     values['shelter_name'] = @@current_shelter
 
