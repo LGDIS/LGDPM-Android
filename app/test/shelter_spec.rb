@@ -8,8 +8,8 @@ describe "Shelter" do
       it "JSONを読み込めること" do
         Shelter.load_shelter()
         Shelter.all().size.should == 311
-        Shelter.all["1"].force_encoding("utf-8").should == "石巻小学校"
-        Shelter.all["311"].force_encoding("utf-8").should == "牡鹿保健福祉センター（市管理分）"
+        Shelter.all["04202I00000000000001"].force_encoding("utf-8").should == "石巻小学校"
+        Shelter.all["04202I00000000000311"].force_encoding("utf-8").should == "牡鹿保健福祉センター（市管理分）"
       end
     end
 
