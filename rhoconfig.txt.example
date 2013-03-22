@@ -86,11 +86,12 @@ jqtouch_mode=1
 splash_screen='zoom'
 
 lgdpm_max_year=130
-lgdpm_login_url='http://192.168.0.1/login.json'
-lgdpm_upload_url='http://192.168.0.1/evacuees.json'
-lgdpm_address_download_url='http://192.168.0.1/address.json'
-lgdpm_shelter_download_url='http://192.168.0.1/shelter.json'
-lgdpm_master_download_url='http://192.168.0.1/master.json'
+lgdpm_login_url='http://192.168.0.1/LGDPM/users/sign_in'
+lgdpm_upload_url='http://192.168.0.1/LGDPM/evacuees.json'
+lgdpm_evacuees_new_url='http://192.168.0.1/LGDPM/evacuees/new'
+lgdpm_address_download_url='http://192.168.0.1/LGDPM/address.json'
+lgdpm_shelter_download_url='http://192.168.0.1/LGDPM/shelters.json'
+lgdpm_master_download_url='http://192.168.0.1/LGDPM/master.json'
 #lgdpm_http_server_authentication=basic
 #lgdpm_http_server_authentication_user=user
 #lgdpm_http_server_authentication_password=password

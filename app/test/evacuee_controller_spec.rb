@@ -163,6 +163,7 @@ describe "EvacueeController" do
   describe "upload" do
     context "データが存在しない場合" do
       before do
+        LoginController.should_receive(:get_cookie).and_return("cookie")
         Evacuee.should_receive(:find).with(:all).and_return([])
       end
       it "メニュー画面にリダイレクトすること" do
@@ -175,27 +176,61 @@ describe "EvacueeController" do
     context "データが存在する場合" do
       before(:all) do
         @lgdpm_http_server_authentication = Rho::RhoConfig.lgdpm_http_server_authentication
-        @lgdpm_upload_url = Rho::RhoConfig.lgdpm_upload_url
+        @lgdpm_evacuees_new_url = Rho::RhoConfig.lgdpm_evacuees_new_url
         Rho::RhoConfig.lgdpm_http_server_authentication = ""
-        Rho::RhoConfig.lgdpm_upload_url = "uploadURL"
+        Rho::RhoConfig.lgdpm_evacuees_new_url = "evacueesNewURL"
         @evacuee = Evacuee.new
         Evacuee.should_receive(:find).and_return([@evacuee])
-        @evacuee.should_receive(:url_encode).and_return("url_encode_data")
         LoginController.should_receive(:get_cookie).and_return("cookie")
       end
-      it "避難者がPOSTされること" do
-         args = {:url => "uploadURL",
-          :body => "url_encode_data",
-          :callback => "/app/Evacuee/http_post_callback",
+      it "難者登録画面がGETされること" do
+         args = {:url => "evacueesNewURL",
+          :callback => "/app/Evacuee/http_get_callback",
           :headers => {:cookie => "cookie"},
           :callback_param => ""}
-        Rho::AsyncHttp.should_receive(:post).with(args)
+        Rho::AsyncHttp.should_receive(:get).with(args)
         @controller.serve(@application, nil, SpecHelper.create_request("POST /Evacuee/upload"), {})
         @controller.instance_variable_get(:@content).should == @controller.render(:action => :wait)
       end
       after(:all) do
         Rho::RhoConfig.lgdpm_http_server_authentication = @lgdpm_http_server_authentication
+        Rho::RhoConfig.lgdpm_evacuees_new_url = @lgdpm_evacuees_new_url
+      end
+    end
+  end
+  
+  describe "http_get_callback" do
+    context "OKの場合" do
+      before(:all) do
+        @lgdpm_http_server_authentication = Rho::RhoConfig.lgdpm_http_server_authentication
+        @lgdpm_upload_url = Rho::RhoConfig.lgdpm_upload_url
+        Rho::RhoConfig.lgdpm_http_server_authentication = ""
+        Rho::RhoConfig.lgdpm_upload_url = "uploadURL"
+        @evacuee = Evacuee.new
+        EvacueeController.class_variable_set(:@@evacuees, [@evacuee])
+        EvacueeController.class_variable_set(:@@cnt, 0)
+        @evacuee.should_receive(:url_encode).and_return("url_encode_data")
+        EvacueeController.class_variable_set(:@@authenticity_token, "authenticity_token")
+        EvacueeController.class_variable_set(:@@cookie, "cookie")
+      end
+      it "避難者がPOSTされること" do
+        args = {:url => "uploadURL",
+          :body => "url_encode_data&authenticity_token=authenticity_token",
+          :headers => {:cookie => "cookie"},
+          :callback => "/app/Evacuee/http_post_callback",
+          :callback_param => ""}
+        Rho::AsyncHttp.should_receive(:post).with(args)
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Evacuee/http_get_callback", "status" => "ok", "http_error" => "200", "rho_callback" => "1", "cookies" => "cookie"), {})
+      end
+      after(:all) do
+        Rho::RhoConfig.lgdpm_http_server_authentication = @lgdpm_http_server_authentication
         Rho::RhoConfig.lgdpm_upload_url = @lgdpm_upload_url
+      end
+    end
+    context "エラーの場合" do
+      it "エラー画面に遷移すること" do
+        WebView.should_receive(:navigate).with("/app/Evacuee/show_error")
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Evacuee/http_get_callback", "status" => "ng", "http_error" => "500", "rho_callback" => "1"), {})
       end
     end
   end
@@ -227,16 +262,9 @@ describe "EvacueeController" do
           @evacuee.should_receive(:destroy)
           EvacueeController.class_variable_set(:@@evacuees, [@evacuee, @evacuee])
           EvacueeController.class_variable_set(:@@cnt, 0)
-          @evacuee.should_receive(:url_encode).and_return("url_encode_data")
-          LoginController.should_receive(:get_cookie).and_return("cookie")
         end
-        it "避難者がPOSTされること" do
-          args = {:url => "uploadURL",
-            :body => "url_encode_data",
-            :callback => "/app/Evacuee/http_post_callback",
-            :headers => {:cookie => "cookie"},
-            :callback_param => ""}
-          Rho::AsyncHttp.should_receive(:post).with(args)
+        it "次データが処理されること" do
+          @controller.should_receive(:http_get_authenticity_token)
           WebView.should_receive(:navigate).with("/app/Evacuee/wait")
           @controller.serve(@application, nil, SpecHelper.create_request("GET /Evacuee/http_post_callback", "status" => "ok", "rho_callback" => "1"), {})
         end
@@ -270,7 +298,7 @@ describe "EvacueeController" do
 
   describe "show_error" do
     before(:all) do
-      AddressController.class_variable_set(:@@error_params, {'error_code' => '2', 'http_error' => '500'})
+      EvacueeController.class_variable_set(:@@error_params, {'error_code' => '2', 'http_error' => '500'})
       @controller.serve(@application, nil, SpecHelper.create_request("GET /Evacuee/show_error"), {})
     end
     it "エラー画面がレンダリングされること" do
@@ -287,5 +315,4 @@ describe "EvacueeController" do
     end
     
   end
-  
 end

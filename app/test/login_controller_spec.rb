@@ -23,20 +23,55 @@ describe "LoginController" do
       Rho::RhoConfig.lgdpm_http_server_authentication = ""
       Rho::RhoConfig.lgdpm_login_url = "loginURL"
     end
-    it "ログイン、パスワードがPOSTされること" do
+    it "ログイン画面のGETが実行されること" do
       args = {:url => "loginURL",
-        :body => "user[login]=login&user[password]=password",
-        :callback => "/app/Login/http_post_callback",
+        :callback => "/app/Login/http_get_callback",
         :callback_param => ""}
-      Rho::AsyncHttp.should_receive(:post).with(args)
+      Rho::AsyncHttp.should_receive(:get).with(args)
       @controller.serve(@application, nil, SpecHelper.create_request("POST /Login/do_login", "login" => "login", "password" => "password"), {})
+      LoginController.class_variable_get(:@@login).should == "login"
+      LoginController.class_variable_get(:@@password).should == "password"
     end
     after(:all) do
       Rho::RhoConfig.lgdpm_http_server_authentication = @lgdpm_http_server_authentication
       Rho::RhoConfig.lgdpm_login_url = @lgdpm_login_url
     end
   end
-  
+
+  describe "http_get_callback" do
+    context "OKの場合" do
+      before(:all) do
+        @lgdpm_http_server_authentication = Rho::RhoConfig.lgdpm_http_server_authentication
+        @lgdpm_login_url = Rho::RhoConfig.lgdpm_login_url
+        Rho::RhoConfig.lgdpm_http_server_authentication = ""
+        Rho::RhoConfig.lgdpm_login_url = "loginURL"
+        LoginController.class_variable_set(:@@login, "login")
+        LoginController.class_variable_set(:@@password, "password")
+        LoginController.class_variable_set(:@@authenticity_token, "authenticity_token")
+        LoginController.class_variable_set(:@@cookie, "cookie")
+      end
+      it "ログイン、パスワードがPOSTされること" do
+        args = {:url => "loginURL.json",
+          :body => "user[login]=login&user[password]=password&authenticity_token=authenticity_token",
+          :headers => {:cookie => "cookie"},
+          :callback => "/app/Login/http_post_callback",
+          :callback_param => ""}
+        Rho::AsyncHttp.should_receive(:post).with(args)
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Login/http_get_callback", "status" => "ok", "http_error" => "200", "rho_callback" => "1", "cookies" => "cookie"), {})
+      end
+      after(:all) do
+        Rho::RhoConfig.lgdpm_http_server_authentication = @lgdpm_http_server_authentication
+        Rho::RhoConfig.lgdpm_login_url = @lgdpm_login_url
+      end
+    end
+    context "エラーの場合" do
+      it "エラー画面に遷移すること" do
+        WebView.should_receive(:navigate).with("/app/Login/show_error")
+        @controller.serve(@application, nil, SpecHelper.create_request("GET /Login/http_get_callback", "status" => "ng", "http_error" => "500", "rho_callback" => "1"), {})
+      end
+    end
+  end
+
   describe "http_post_callback" do
     context "認証ＯＫの場合" do
       it "アップロード画面に遷移すること" do

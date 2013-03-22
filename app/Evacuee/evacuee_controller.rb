@@ -172,11 +172,12 @@ class EvacueeController < Rho::RhoController
     @@evacuees = Evacuee.find(:all)
     @@cnt = 0
     @@canceled = false
+    @@cookie = LoginController.get_cookie
     if @@evacuees.empty?
       Alert.show_popup "避難者データが登録されていません"
-      redirect Rho::RhoConfig.start_path  
+      redirect Rho::RhoConfig.start_path
     else
-      http_post(@@evacuees[@@cnt])
+      http_get_authenticity_token
       wait
     end
   end
@@ -210,13 +211,30 @@ class EvacueeController < Rho::RhoController
         # 次のデータをアップロード
         @@cnt += 1
         if @@cnt < @@evacuees.size
-          http_post(@@evacuees[@@cnt])
+          http_get_authenticity_token
           WebView.navigate(url_for(:action => :wait))
         else
           Alert.show_popup "登録が完了しました。"
           WebView.navigate(Rho::RhoConfig.start_path)
         end
       end
+    end
+  end
+
+  # 認証トークンGETコールバック
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def http_get_callback
+    if @params['status'] != 'ok'
+      @@error_params = @params
+      WebView.navigate(url_for(:action => :show_error))
+    else
+      if /<input name="authenticity_token" type="hidden" value="([^"]+)"/ =~ @params['body']
+        @@authenticity_token = Regexp.last_match(1)
+      end
+      @@cookie = @params["cookies"] if @params["cookies"]
+      http_post(@@evacuees[@@cnt])
     end
   end
 
@@ -242,7 +260,7 @@ class EvacueeController < Rho::RhoController
   def cancel_upload
     @@canceled = true
   end
-  
+
   private
   
   # 登録画面デフォルト値を返します
@@ -270,7 +288,7 @@ class EvacueeController < Rho::RhoController
     values['physical_disability_certificate'] = Rho::RhoConfig.lgdpm_default_physical_disability_certificate
     @@current_shelter ||= Rho::RhoConfig.lgdpm_default_shelter_name
     values['shelter_name'] = @@current_shelter
-      
+
     values
   end
 
@@ -347,9 +365,9 @@ class EvacueeController < Rho::RhoController
   # ==== Raise
   def http_post(data)
     params = {:url => Rho::RhoConfig.lgdpm_upload_url,
-             :body => data.url_encode,
+             :body => data.url_encode + "&authenticity_token=#{Rho::RhoSupport.url_encode(@@authenticity_token)}",
              :callback => (url_for :action => :http_post_callback),
-             :headers => {:cookie => LoginController.get_cookie},
+             :headers => {:cookie => @@cookie},
              :callback_param => ""}
     unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
       params[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
@@ -357,5 +375,23 @@ class EvacueeController < Rho::RhoController
                                :password => Rho::RhoConfig.lgdpm_http_server_authentication_password }
     end
     Rho::AsyncHttp.post(params)
+  end
+
+  # HTTP GET 処理
+  # HTTP GET により、避難者登録画面の認証トークンを取得します。
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def http_get_authenticity_token
+    params = {:url => Rho::RhoConfig.lgdpm_evacuees_new_url,
+             :callback => (url_for :action => :http_get_callback),
+             :headers => {:cookie => @@cookie},
+             :callback_param => ""}
+    unless blank?(Rho::RhoConfig.lgdpm_http_server_authentication)
+      params[:authorization] = {:type => Rho::RhoConfig.lgdpm_http_server_authentication.intern,
+                               :username => Rho::RhoConfig.lgdpm_http_server_authentication_username,
+                               :password => Rho::RhoConfig.lgdpm_http_server_authentication_password }
+    end
+    Rho::AsyncHttp.get(params)
   end
 end
