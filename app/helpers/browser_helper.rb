@@ -24,13 +24,19 @@ module BrowserHelper
     if year < 1912
       gg = '明治'
       yy = year - 1867
+    elsif year == 1912
+      gg = '大正'
+      yy = '元'
     elsif year >= 1912 && year <= 1926
       gg = '大正'
       yy = year - 1911
     elsif year > 1926 && year < 1989
       gg = '昭和'
       yy = year - 1925
-    elsif year >= 1989
+    elsif year == 1989
+      gg = '平成'
+      yy = '元'
+    elsif year > 1989
       gg = '平成'
       yy = year - 1988
     end
