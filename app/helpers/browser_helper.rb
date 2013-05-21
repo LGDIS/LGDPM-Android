@@ -51,7 +51,7 @@ module BrowserHelper
   # 年選択セレクトボックスタグのHTML
   # ==== Raise
   def select_year_tag(options={})
-    tag = %(<select style="width:150px" data-mini="true")
+    tag = %(<select data-mini="true")
     tag << %( name="#{options[:name]}") if options[:name]
     tag << %( id="#{options[:id]}") if options[:id]
     tag << %( data-theme="#{options[:data_theme]}") if options[:data_theme]
