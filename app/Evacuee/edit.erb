@@ -58,7 +58,7 @@
 
       <div data-role="fieldcontain">
         <label for="evacuee-home_postal_code" class="fieldLabel">郵便番号</label>
-        <input type="text" id="evacuee-home_postal_code" name="evacuee[home_postal_code]" value="<%= @evacuee.home_postal_code %>" maxlength="500" />
+        <input type="text" id="evacuee-home_postal_code" name="evacuee[home_postal_code]" value="<%= @evacuee.home_postal_code %>" maxlength="7" />
       </div>
 
       <div data-role="fieldcontain">
@@ -147,7 +147,7 @@
 
       <div data-role="fieldcontain">
         <label for="evacuee-next_place_phone" class="fieldLabel">退所先電話番号</label>
-        <input type="text" id="evacuee-next_place_phone" name="evacuee[next_place_phone]" value="<%= @evacuee.next_place_phone %>" maxlength="20" />
+        <input type="text" id="evacuee-next_place_phone" name="evacuee[next_place_phone]" value="<%= @evacuee.next_place_phone %>" maxlength="11" />
       </div>
 
       <div data-role="fieldcontain">
